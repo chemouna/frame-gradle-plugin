@@ -7,5 +7,5 @@ repositories {
 
 rootProject.dependencies {
   compile 'com.android.tools.build:gradle:1.+'
-  compile project(':screenshots-plugin')
+  compile project(':screenshots:screenshots-plugin')
 }

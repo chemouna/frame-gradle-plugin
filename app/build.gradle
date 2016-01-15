@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.mounacheikhna.screenshots'
+//apply plugin: com.mounacheikhna.screenshots.ScreenshotsPlugin
 
 android {
   compileSdkVersion 23
@@ -42,4 +43,5 @@ screenshots {
 
 }
 */
+
 

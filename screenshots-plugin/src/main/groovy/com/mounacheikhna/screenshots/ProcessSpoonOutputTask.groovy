@@ -1,71 +1,35 @@
 package com.mounacheikhna.screenshots
 
-import com.novoda.gradle.command.AndroidCommandPluginExtension
-import org.apache.commons.lang3.StringUtils
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
+
 /**
- * Created by m.cheikhna on 01/01/2016.
+ * Created by m.cheikhna on 29/12/2015.
  */
-class ParseSpoonOutputTask extends DefaultTask {
+public class ProcessSpoonOutputTask extends DefaultTask {
 
     static final String PLAY_FOLDER_RELATIVE_PATH = "src/main/play"
 
-    //public Device[] allDevices
-    //TODO: make a plugin and make these there extensions
-    def buildTypeInput
-    def productFlavorInput
+    private String buildTypeInput
+    private String productFlavorInput
+    private CharSequence[] locales
 
-    public String PHONE = "phone"
-    public String SEVEN_INCH_DEVICE = "sevenInch"
-    public String TEN_INCH_DEVICE = "tenInch"
+    private String PHONE = "phone"
+    private String SEVEN_INCH_DEVICE = "sevenInch"
+    private String TEN_INCH_DEVICE = "tenInch"
     private List<DeviceDetails> devicesDetails
-
-    //TODO: this list should be all possible locales
-    //CharSequence[] locales = ["fr_FR", "es_ES", "en_US", "it_IT"] //, "en_GB"
 
     @TaskAction
     void performTask() {
-        println "Perform task "
         initDevicesDetails()
+        if (!project.plugins.hasPlugin('android')) {
+            throw new StopExecutionException("The 'android' plugin is required.")
+        }
 
         buildTypeInput = project.screenshots.buildType
         productFlavorInput = project.screenshots.productFlavor
-        println project.screenshots.screenshotsClassName
-
-        def pluginEx = project.android.extensions.findByType(AndroidCommandPluginExtension)
-        List<String> locales = project.screenshots.locales
-        for (String local : locales) {
-            def (language, country) = local.tokenize('-')
-            devicesDetails.each { DeviceDetails device ->
-                //println " changing local for device $device.serialNo to $local"
-
-               /* [["shell", "setprop", "persist.sys.language $language"],
-                 ["shell", "setprop", "persist.sys.country $country"],
-                 ["shell", "stop"],
-                 ["shell", "sleep 5"],
-                 ["shell", "start"]
-                ].each {
-                    println " command for $it"
-                    AdbCommand command = [adb: pluginEx.getAdb(), deviceId: device.serialNo, parameters: it]
-                    println command.execute().text.trim()
-                }*/
-
-                //TODO: need to wait here
-                println " end of adb commands to change local of $device.serialNo to $local"
-                println " run spoon task for $device.serialNo to $local"
-
-                //println "There ${project.tasks['spoonScreenshotsAndroidTest'].name}"
-
-                //def task = project.tasks.create("spoon$language$country", dependsOn: spoon)
-                //task dependsOn Spoon
-                //task.execute()
-
-                println " end of spoon task for $device.serialNo to $local"
-            }
-            //maybe we will need to wait somehow for these adb commands to finish
-        }
+        locales = project.screenshots.locales
 
         putScreenshotsImagesInPlayFolders()
     }
@@ -77,10 +41,12 @@ class ParseSpoonOutputTask extends DefaultTask {
             println " dir : $dir "
             DeviceDetails device = findDeviceForDirectory(dir)
             println "*************"
-            println " Device: $device.serialNo , Type: $device.type"
             if (device != null) {
+                println " Device: $device.serialNo , Type: $device.type"
                 dir.eachFileRecurse {
-                    def foundlocalIndex = StringUtils.indexOfAny(it.name, project.screenshots.locales)
+                    CharSequence cs = it.name
+                    CharSequence[] locales = project.screenshots.locales
+                    def foundlocalIndex = StringUtils.indexOfAny(cs, locales)
                     println " eachFileRecurse : $it.name & foundlocalIndex : " + foundlocalIndex
                     if (it.isFile() && it.name.contains(".png") && foundlocalIndex != -1) {
                         println " Passed by file ${it.name}"
@@ -94,26 +60,23 @@ class ParseSpoonOutputTask extends DefaultTask {
     }
 
     File getScreenshotsImagesFolder() {
-        //TODO: get these dynamicaly
-        def buildType = "debug"
-        def productFlavor = "defaultConfig"
-        //TODO : when there is only one flavor its just buildType directly
-        //def path = "${getProject().getBuildDir()}/custom-report-dir/$productFlavor/$buildType/image/"
-        def path = "${project.buildDir}/custom-report-dir/$buildType/image/"
+        //TODO: use $productFlavorInput only if non empty
+        def path = "${project.screenshots.buildDestDir ?: project.buildDir}/$productFlavorInput/$buildTypeInput/image/"
+        println " getScreenshotsImagesFolder path : $path"
         new File(path)
     }
 
-    /**
+    /*
      * To get play locale folder name from a locale that has the format fr_FR
      * Examples : fr_FR -> fr-FR
      *            ro_RU -> ro ..
-     *
      */
     String getPlayLocalFolderName(String locale) {
         locale.replace("_", "-") //this may not be enough for cases like in russia where instead
         // of ro-RU we need to have play folder for RO
     }
 
+    //TODO: fix this, right now it works only emulators names and not phone.
     DeviceDetails findDeviceForDirectory(File dir) {
         //this part works for emulator
         def patternDeviceNbPart = ~/\d+_/
@@ -133,13 +96,13 @@ class ParseSpoonOutputTask extends DefaultTask {
         project.tasks.create("copy$fileName", Copy) {
             from path
             into playImagesDir
-            rename "(.*)_($locale)_(.*).png", '$3.png'
+            rename "(.*)_($locale)_(.*).png", '$3.png' //TODO: adapt to all types of screenshots (emulator: android & genymotion device or not)
         }.execute()
     }
 
+
     String playImagesDir(DeviceDetails deviceDetails, String localeFolder) {
         def playImagesDir = "${project.getProjectDir()}/$PLAY_FOLDER_RELATIVE_PATH/$localeFolder/listing/"
-        //temp -> should depend on local
         if (deviceDetails.type == PHONE) {
             playImagesDir += "phoneScreenshots"
         } else if (deviceDetails.type == SEVEN_INCH_DEVICE) {
@@ -149,6 +112,7 @@ class ParseSpoonOutputTask extends DefaultTask {
         }
         playImagesDir
     }
+
 
     private void initDevicesDetails() {
         this.devicesDetails = new ArrayList<>(3)
@@ -171,5 +135,6 @@ class ParseSpoonOutputTask extends DefaultTask {
             this.devicesDetails.add(new DeviceDetails(TEN_INCH_DEVICE, tenInchDevice))
         }
     }
+
 
 }
