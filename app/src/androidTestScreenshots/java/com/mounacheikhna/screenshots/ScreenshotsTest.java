@@ -1,5 +1,6 @@
 package com.mounacheikhna.screenshots;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.squareup.spoon.Spoon;
@@ -24,8 +25,10 @@ public class ScreenshotsTest {
   }
 
   @Test public void screenshotsTest() throws Exception {
+    String locale = InstrumentationRegistry.getArguments().getString("locale");
     onView(withId(R.id.fab)).perform(click());
-    Spoon.screenshot(activityRule.getActivity(), "fr_FR_from_screenshots");
+    Spoon.screenshot(activityRule.getActivity(), locale + "_from_screenshots");
   }
+
 
 }

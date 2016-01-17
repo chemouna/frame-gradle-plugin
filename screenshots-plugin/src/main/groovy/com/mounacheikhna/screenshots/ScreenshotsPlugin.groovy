@@ -48,7 +48,8 @@ class ScreenshotsPlugin implements Plugin<Project> {
     Task task = project.tasks.create("spoonRunTask", Exec) {
       commandLine "java", "-jar", "$spoonRunnerLibPath",
           "--apk", "$apkPath", "--test-apk", "$testApkPath",
-          "--class-name", "com.mounacheikhna.screenshots.ScreenshotsTest"
+          "--class-name", "com.mounacheikhna.screenshots.ScreenshotsTest",
+          "--e", "locale=fr_FR"
     }
     def flavorTaskName = productFlavor.capitalize()
     task.dependsOn project.tasks.findByName("assemble$flavorTaskName")
