@@ -54,8 +54,7 @@ public class ProcessSpoonOutputTask extends DefaultTask {
             copyImageToPlayFolder(it.name, it.path, playImagesDir(device, localeFolder), locale)
           }
         }
-      }
-      else {
+      } else {
         println "Couldn't find a device dir"
       }
     }
@@ -73,12 +72,6 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     file
   }
 
-  /*
-   * To get play locale folder name from a locale that has the format fr_FR
-   * Examples : fr_FR -> fr-FR
-   *            ro_RU -> ro ..
-   */
-
   static String getPlayLocalFolderName(String locale) {
     locale.replace("_", "-") //this may not be enough for cases like in russia where instead
     // of ro-RU we need to have play folder for RO
@@ -87,14 +80,10 @@ public class ProcessSpoonOutputTask extends DefaultTask {
   //TODO: fix this, right now it works only emulators names and not phone.
   DeviceDetails findDeviceForDirectory(File dir) {
     //this part works for emulator
-    def patternDeviceNbPart = ~/\d+_/
-    def deviceSerialNumber = dir.name.findAll(patternDeviceNbPart).join(".").replace("_", "")
-    println deviceSerialNumber
-    if (deviceSerialNumber == null || deviceSerialNumber.empty) {
-      deviceSerialNumber = dir.name
-    }
-    def device = this.devicesDetails.find({ it.serialNo.contains(deviceSerialNumber) })
-    device
+    //def serialNo = dir.name.findAll(~/\d+_/).join(".").replace("_", "")
+    def serialNo = dir.name.findAll(~/\d+_/).collect{ it.replace("_", "") }.join(".")
+    serialNo = serialNo ?: dir.name
+    this.devicesDetails.find({ it.serialNo.contains(serialNo) })
   }
 
   void copyImageToPlayFolder(fileName, path, playImagesDir, locale) {
@@ -109,35 +98,25 @@ public class ProcessSpoonOutputTask extends DefaultTask {
 
   String playImagesDir(DeviceDetails deviceDetails, String localeFolder) {
     def playImagesDir = "${project.getProjectDir()}/$PLAY_FOLDER_RELATIVE_PATH/${localeFolder.replace("_", "-")}/listing/"
-    if (deviceDetails.type == PHONE) {
-      playImagesDir += "phoneScreenshots"
-    } else if (deviceDetails.type == SEVEN_INCH_DEVICE) {
-      playImagesDir += "sevenInchScreenshots"
-    } else if (deviceDetails.type == TEN_INCH_DEVICE) {
-      playImagesDir += "tenInchScreenshots"
+    def dirs = [PHONE: "phoneScreenshots", SEVEN_INCH_DEVICE: "sevenInchScreenshots",
+               TEN_INCH_DEVICE: "tenInchScreenshots"]
+    dirs.findResult { type, dir ->
+      deviceDetails.type == type ? playImagesDir + dir : playImagesDir
     }
-    playImagesDir
   }
 
+  @SuppressWarnings("GroovyAssignabilityCheck")
   private void initDevicesDetails() {
     this.devicesDetails = new ArrayList<>(3)
+    addDevice(PHONE, project.screenshots.phone)
+    addDevice(SEVEN_INCH_DEVICE, project.screenshots.sevenInchDevice)
+    addDevice(TEN_INCH_DEVICE, project.screenshots.tenInchDevice)
+  }
 
-    String phone = project.screenshots.phone
-    println " phone : $phone"
-    if (phone != null && !phone.empty) {
-      this.devicesDetails.add(new DeviceDetails(PHONE, phone))
-    }
-
-    String sevenInchDevice = project.screenshots.sevenInchDevice
-    println " sevenInchDevice : $sevenInchDevice"
-    if (sevenInchDevice != null && !sevenInchDevice.empty) {
-      this.devicesDetails.add(new DeviceDetails(SEVEN_INCH_DEVICE, sevenInchDevice))
-    }
-
-    String tenInchDevice = project.screenshots.tenInchDevice
-    println " tenInchDevice : $tenInchDevice"
-    if (tenInchDevice != null && !tenInchDevice.empty) {
-      this.devicesDetails.add(new DeviceDetails(TEN_INCH_DEVICE, tenInchDevice))
+  private void addDevice(String type, String serialNo) {
+    if(serialNo) { //since Groovy truth says that a null or empty string is false
+      this.devicesDetails.add(new DeviceDetails(type, serialNo))
     }
   }
+
 }
