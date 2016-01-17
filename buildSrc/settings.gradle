@@ -1,2 +1,2 @@
-include ':screenshots:screenshots-plugin'
-project(':screenshots:screenshots-plugin').projectDir = new File('../screenshots-plugin')
+include ':screenshots-plugin'
+project(':screenshots-plugin').projectDir = new File('../screenshots-plugin')

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.mounacheikhna.screenshots.test" tests="3" failures="1" errors="0" skipped="0" time="0.013" timestamp="2016-01-17T06:39:59" hostname="localhost">
+  <properties />
+  <testcase name="testApplicationTestCaseSetUpProperly" classname="com.mounacheikhna.screenshots.ApplicationTest" time="0.001" />
+  <testcase name="testAndroidTestCaseSetupProperly" classname="com.mounacheikhna.screenshots.ApplicationTest" time="0.0" />
+  <testcase name="initializationError" classname="com.mounacheikhna.screenshots.MainTest" time="0.014">
+    <failure>org.junit.internal.runners.rules.ValidationError: The &#64;Rule 'activityRule' must be public.
+at org.junit.internal.runners.rules.RuleMemberValidator$MemberMustBePublic.validate(RuleMemberValidator.java:222)
+at org.junit.internal.runners.rules.RuleMemberValidator.validateMember(RuleMemberValidator.java:99)
+at org.junit.internal.runners.rules.RuleMemberValidator.validate(RuleMemberValidator.java:93)
+at org.junit.runners.BlockJUnit4ClassRunner.validateFields(BlockJUnit4ClassRunner.java:196)
+at org.junit.runners.BlockJUnit4ClassRunner.collectInitializationErrors(BlockJUnit4ClassRunner.java:129)
+at org.junit.runners.ParentRunner.validate(ParentRunner.java:416)
+at org.junit.runners.ParentRunner.&lt;init&gt;(ParentRunner.java:84)
+at org.junit.runners.BlockJUnit4ClassRunner.&lt;init&gt;(BlockJUnit4ClassRunner.java:65)
+at android.support.test.internal.runner.junit4.AndroidJUnit4ClassRunner.&lt;init&gt;(AndroidJUnit4ClassRunner.java:38)
+at android.support.test.runner.AndroidJUnit4.&lt;init&gt;(AndroidJUnit4.java:36)
+at java.lang.reflect.Constructor.newInstance(Native Method)
+at android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder.buildAndroidRunner(AndroidAnnotatedBuilder.java:57)
+at android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder.runnerForClass(AndroidAnnotatedBuilder.java:45)
+at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
+at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:26)
+at org.junit.runner.Computer.getRunner(Computer.java:40)
+at org.junit.runner.Computer$1.runnerForClass(Computer.java:31)
+at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
+at org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:101)
+at org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:87)
+at org.junit.runners.Suite.&lt;init&gt;(Suite.java:81)
+at org.junit.runner.Computer.getSuite(Computer.java:28)
+at android.support.test.internal.runner.TestRequestBuilder.classes(TestRequestBuilder.java:791)
+at android.support.test.internal.runner.TestRequestBuilder.build(TestRequestBuilder.java:754)
+at android.support.test.runner.AndroidJUnitRunner.buildRequest(AndroidJUnitRunner.java:341)
+at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:238)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1879)
+</failure>
+  </testcase>
+</testsuite>

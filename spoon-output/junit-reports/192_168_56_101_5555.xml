@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.mounacheikhna.screenshots.test" tests="2" failures="0" errors="0" skipped="0" time="0.005" timestamp="2016-01-16T21:31:36" hostname="localhost">
+  <properties />
+  <testcase name="testAndroidTestCaseSetupProperly" classname="com.mounacheikhna.screenshots.ApplicationTest" time="0.001" />
+  <testcase name="testApplicationTestCaseSetUpProperly" classname="com.mounacheikhna.screenshots.ApplicationTest" time="0.0" />
+</testsuite>

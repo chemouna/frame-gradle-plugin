@@ -1,6 +1,8 @@
+
+
 apply plugin: 'com.android.application'
 //apply plugin: 'com.mounacheikhna.screenshots'
-//apply plugin: com.mounacheikhna.screenshots.ScreenshotsPlugin
+apply plugin: com.mounacheikhna.screenshots.ScreenshotsPlugin
 
 android {
   compileSdkVersion 23
@@ -12,6 +14,9 @@ android {
     targetSdkVersion 23
     versionCode 1
     versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
   }
   buildTypes {
     release {
@@ -19,6 +24,15 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  productFlavors {
+    screenshots {
+    }
+  }
+}
+
+configurations.all {
+  resolutionStrategy.force 'com.android.support:support-annotations:23.1.1'
 }
 
 dependencies {
@@ -26,22 +40,27 @@ dependencies {
   testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:23.1.1'
   compile 'com.android.support:design:23.1.1'
+
+  androidTestCompile "com.android.support.test:runner:0.4.1"
+  androidTestCompile "com.android.support.test:rules:0.4.1"
+  androidTestCompile "junit:junit:4.12"
+  androidTestCompile "com.squareup.spoon:spoon-client:1.3.1"
+  androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+
 }
 
-/*
 screenshots {
-  buildDestDir = "$buildDir/custom-report-dir"
-  //phone="041e4f7325232e3c"
+  //
+  // buildDestDir = "$buildDir/custom-report-dir"
   phone="192.168.56.101:5555"
-  sevenInchDevice="emulator-5556"
-  tenInchDevice="emulator-5554"
-  locales=["fr-FR", "en-US" + "", "es-ES"]
-  //screenshotsClassName="com.mounacheikhna.alias.Screenshots"
+  sevenInchDevice="" //""emulator-5556"
+  tenInchDevice="" //"emulator-5554"
+  locales=["fr-FR", "en-US", "es-ES"]
 
   buildType = "debug"
   productFlavor = "screenshots"
 
 }
-*/
+
 
 

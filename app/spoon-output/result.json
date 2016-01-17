@@ -1,0 +1,512 @@
+{
+  "title": "Spoon Execution",
+  "started": 1453012767437,
+  "duration": 32,
+  "results": {
+    "192_168_56_101_5555": {
+      "installFailed": false,
+      "deviceDetails": {
+        "model": "Google Nexus 5 - 5.0.0 - API 21 - 1080x1920",
+        "manufacturer": "unknown",
+        "version": "5.0",
+        "apiLevel": 21,
+        "language": "en",
+        "region": "US",
+        "isEmulator": false
+      },
+      "testResults": [
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.ApplicationTest",
+            "methodName": "testAndroidTestCaseSetupProperly"
+          },
+          {
+            "status": "PASS",
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ],
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.ApplicationTest",
+            "methodName": "testApplicationTestCaseSetUpProperly"
+          },
+          {
+            "status": "PASS",
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ],
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.MainTest",
+            "methodName": "initializationError"
+          },
+          {
+            "status": "FAIL",
+            "exception": {
+              "className": "org.junit.internal.runners.rules.ValidationError",
+              "message": "The @Rule \u0027activityRule\u0027 must be public.",
+              "elements": [
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator$MemberMustBePublic",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 222,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 99,
+                  "methodName": "validateMember",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 93,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 196,
+                  "methodName": "validateFields",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 129,
+                  "methodName": "collectInitializationErrors",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.ParentRunner",
+                  "fileName": "ParentRunner.java",
+                  "line": 416,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.ParentRunner",
+                  "fileName": "ParentRunner.java",
+                  "line": 84,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 65,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidJUnit4ClassRunner",
+                  "fileName": "AndroidJUnit4ClassRunner.java",
+                  "line": 38,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnit4",
+                  "fileName": "AndroidJUnit4.java",
+                  "line": 36,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "java.lang.reflect.Constructor",
+                  "line": 0,
+                  "methodName": "newInstance",
+                  "isNative": true
+                },
+                {
+                  "className": "java.lang.reflect.Constructor",
+                  "fileName": "Constructor.java",
+                  "line": 288,
+                  "methodName": "newInstance",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder",
+                  "fileName": "AndroidAnnotatedBuilder.java",
+                  "line": 57,
+                  "methodName": "buildAndroidRunner",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder",
+                  "fileName": "AndroidAnnotatedBuilder.java",
+                  "line": 45,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 59,
+                  "methodName": "safeRunnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.builders.AllDefaultPossibilitiesBuilder",
+                  "fileName": "AllDefaultPossibilitiesBuilder.java",
+                  "line": 26,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer",
+                  "fileName": "Computer.java",
+                  "line": 40,
+                  "methodName": "getRunner",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer$1",
+                  "fileName": "Computer.java",
+                  "line": 31,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 59,
+                  "methodName": "safeRunnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 101,
+                  "methodName": "runners",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 87,
+                  "methodName": "runners",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.Suite",
+                  "fileName": "Suite.java",
+                  "line": 81,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer",
+                  "fileName": "Computer.java",
+                  "line": 28,
+                  "methodName": "getSuite",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.TestRequestBuilder",
+                  "fileName": "TestRequestBuilder.java",
+                  "line": 791,
+                  "methodName": "classes",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.TestRequestBuilder",
+                  "fileName": "TestRequestBuilder.java",
+                  "line": 754,
+                  "methodName": "build",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnitRunner",
+                  "fileName": "AndroidJUnitRunner.java",
+                  "line": 341,
+                  "methodName": "buildRequest",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnitRunner",
+                  "fileName": "AndroidJUnitRunner.java",
+                  "line": 238,
+                  "methodName": "onStart",
+                  "isNative": false
+                },
+                {
+                  "className": "android.app.Instrumentation$InstrumentationThread",
+                  "fileName": "Instrumentation.java",
+                  "line": 1837,
+                  "methodName": "run",
+                  "isNative": false
+                }
+              ]
+            },
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ]
+      ],
+      "started": 1453012768942,
+      "duration": 0,
+      "exceptions": []
+    },
+    "041e4f7325232e3c": {
+      "installFailed": false,
+      "deviceDetails": {
+        "model": "Nexus 5",
+        "manufacturer": "LGE",
+        "version": "6.0",
+        "apiLevel": 23,
+        "isEmulator": false
+      },
+      "testResults": [
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.ApplicationTest",
+            "methodName": "testAndroidTestCaseSetupProperly"
+          },
+          {
+            "status": "PASS",
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ],
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.ApplicationTest",
+            "methodName": "testApplicationTestCaseSetUpProperly"
+          },
+          {
+            "status": "PASS",
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ],
+        [
+          {
+            "className": "com.mounacheikhna.screenshots.MainTest",
+            "methodName": "initializationError"
+          },
+          {
+            "status": "FAIL",
+            "exception": {
+              "className": "org.junit.internal.runners.rules.ValidationError",
+              "message": "The @Rule \u0027activityRule\u0027 must be public.",
+              "elements": [
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator$MemberMustBePublic",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 222,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 99,
+                  "methodName": "validateMember",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.runners.rules.RuleMemberValidator",
+                  "fileName": "RuleMemberValidator.java",
+                  "line": 93,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 196,
+                  "methodName": "validateFields",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 129,
+                  "methodName": "collectInitializationErrors",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.ParentRunner",
+                  "fileName": "ParentRunner.java",
+                  "line": 416,
+                  "methodName": "validate",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.ParentRunner",
+                  "fileName": "ParentRunner.java",
+                  "line": 84,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.BlockJUnit4ClassRunner",
+                  "fileName": "BlockJUnit4ClassRunner.java",
+                  "line": 65,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidJUnit4ClassRunner",
+                  "fileName": "AndroidJUnit4ClassRunner.java",
+                  "line": 38,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnit4",
+                  "fileName": "AndroidJUnit4.java",
+                  "line": 36,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "java.lang.reflect.Constructor",
+                  "line": 0,
+                  "methodName": "newInstance",
+                  "isNative": true
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder",
+                  "fileName": "AndroidAnnotatedBuilder.java",
+                  "line": 57,
+                  "methodName": "buildAndroidRunner",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.junit4.AndroidAnnotatedBuilder",
+                  "fileName": "AndroidAnnotatedBuilder.java",
+                  "line": 45,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 59,
+                  "methodName": "safeRunnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.internal.builders.AllDefaultPossibilitiesBuilder",
+                  "fileName": "AllDefaultPossibilitiesBuilder.java",
+                  "line": 26,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer",
+                  "fileName": "Computer.java",
+                  "line": 40,
+                  "methodName": "getRunner",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer$1",
+                  "fileName": "Computer.java",
+                  "line": 31,
+                  "methodName": "runnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 59,
+                  "methodName": "safeRunnerForClass",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 101,
+                  "methodName": "runners",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.model.RunnerBuilder",
+                  "fileName": "RunnerBuilder.java",
+                  "line": 87,
+                  "methodName": "runners",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runners.Suite",
+                  "fileName": "Suite.java",
+                  "line": 81,
+                  "methodName": "\u003cinit\u003e",
+                  "isNative": false
+                },
+                {
+                  "className": "org.junit.runner.Computer",
+                  "fileName": "Computer.java",
+                  "line": 28,
+                  "methodName": "getSuite",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.TestRequestBuilder",
+                  "fileName": "TestRequestBuilder.java",
+                  "line": 791,
+                  "methodName": "classes",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.internal.runner.TestRequestBuilder",
+                  "fileName": "TestRequestBuilder.java",
+                  "line": 754,
+                  "methodName": "build",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnitRunner",
+                  "fileName": "AndroidJUnitRunner.java",
+                  "line": 341,
+                  "methodName": "buildRequest",
+                  "isNative": false
+                },
+                {
+                  "className": "android.support.test.runner.AndroidJUnitRunner",
+                  "fileName": "AndroidJUnitRunner.java",
+                  "line": 238,
+                  "methodName": "onStart",
+                  "isNative": false
+                },
+                {
+                  "className": "android.app.Instrumentation$InstrumentationThread",
+                  "fileName": "Instrumentation.java",
+                  "line": 1879,
+                  "methodName": "run",
+                  "isNative": false
+                }
+              ]
+            },
+            "duration": 0,
+            "screenshots": [],
+            "files": [],
+            "log": []
+          }
+        ]
+      ],
+      "started": 1453012768931,
+      "duration": 0,
+      "exceptions": []
+    }
+  }
+}

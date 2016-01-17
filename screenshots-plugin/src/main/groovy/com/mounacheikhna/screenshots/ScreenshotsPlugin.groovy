@@ -1,8 +1,10 @@
 package com.mounacheikhna.screenshots
 
+import com.android.build.gradle.AppPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.StopExecutionException
 
 /**
@@ -28,12 +30,43 @@ class ScreenshotsPlugin implements Plugin<Project> {
 
         project.afterEvaluate {
             Task imageMagicAll = createImageMagicAllTask(project)
-            Task spoonTask = project.tasks.find {
+            /*Task spoonTask = project.tasks.find {
                 it.name.contains("spoon") && it.name.contains("Screenshots")
             }
             imageMagicAll.dependsOn spoonTask
+            */
+            Task runSpoonTask = createSpoonRunTask(project)
+            imageMagicAll.dependsOn runSpoonTask
             screenshotsTask.dependsOn imageMagicAll
         }
+    }
+
+    private Task createSpoonRunTask(Project project) {
+        String productFlavor = project.screenshots.productFlavor
+        String prefixApk = "${project.buildDir}/outputs/apk/app-$productFlavor-${project.screenshots.buildType}"
+        println "prefixApk : $prefixApk"
+        String apkPath = "$prefixApk-unaligned.apk"
+        println "apkPath : $apkPath"
+        //TODO: maybe replace -unaligned part with regex match like **
+        String testApkPath = "$prefixApk-androidTest-unaligned.apk"
+        println "testApkPath : $testApkPath"
+        String spoonRunnerLibPath = "${project.rootDir}/" +
+            "" + "screenshots-plugin/lib/spoon-runner-1.3.1-jar-with-dependencies.jar"
+        println "spoonRunnerLibPath : $spoonRunnerLibPath"
+        println " -> cmd : java -jar $spoonRunnerLibPath --apk $apkPath --test-apk $testApkPath"
+
+        //let's try 1st expl by putting in lib/ dir
+
+        Task task = project.tasks.create("spoonRunTask", Exec) {
+            commandLine "java", "-jar", "$spoonRunnerLibPath",
+                "--apk", "$apkPath", "--test-apk", "$testApkPath"
+        }
+        def flavorTaskName = productFlavor.capitalize()
+        println " flavorTaskName : $flavorTaskName"
+        println "looking for task assemble$flavorTaskName"
+        task.dependsOn project.tasks.findByName("assemble$flavorTaskName")
+        task.dependsOn project.tasks.findByName("assembleAndroidTest")
+        task
     }
 
     private Task createImageMagicAllTask(Project project) {

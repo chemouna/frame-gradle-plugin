@@ -1,5 +1,6 @@
 package com.mounacheikhna.screenshots
 
+import org.apache.commons.lang3.StringUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
@@ -61,9 +62,13 @@ public class ProcessSpoonOutputTask extends DefaultTask {
 
     File getScreenshotsImagesFolder() {
         //TODO: use $productFlavorInput only if non empty
-        def path = "${project.screenshots.buildDestDir ?: project.buildDir}/$productFlavorInput/$buildTypeInput/image/"
+        def path = "${project.screenshots.buildDestDir ?: project.projectDir}/spoon-output/image/"
         println " getScreenshotsImagesFolder path : $path"
-        new File(path)
+        def file = new File(path)
+        if(file == null) {
+            throw new IllegalArgumentException("Screenshots folder not found.")
+        }
+        file
     }
 
     /*
