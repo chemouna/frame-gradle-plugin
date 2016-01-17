@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.mounacheikhna.screenshots.test" tests="1" failures="0" errors="0" skipped="0" time="1.952" timestamp="2016-01-17T09:24:43" hostname="localhost">
+  <properties />
+  <testcase name="screenshotsTest" classname="com.mounacheikhna.screenshots.ScreenshotsTest" time="1.884" />
+</testsuite>

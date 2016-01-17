@@ -16,16 +16,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  * @author cheikhnamouna.
  */
 @RunWith(AndroidJUnit4.class)
-public class MainTest {
+public class ScreenshotsTest {
 
   @Rule public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
   @Before public void setUp() throws Exception {
   }
 
-  @Test public void sampleTest() throws Exception {
+  @Test public void screenshotsTest() throws Exception {
     onView(withId(R.id.fab)).perform(click());
-    Spoon.screenshot(activityRule.getActivity(), "fr_FR_from_main");
+    Spoon.screenshot(activityRule.getActivity(), "fr_FR_from_screenshots");
   }
 
 }
