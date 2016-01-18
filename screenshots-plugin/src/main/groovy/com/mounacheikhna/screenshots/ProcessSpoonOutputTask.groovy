@@ -24,7 +24,6 @@ public class ProcessSpoonOutputTask extends DefaultTask {
 
   @TaskAction
   void performTask() {
-    initDevicesDetails()
     if (!project.plugins.hasPlugin('android')) {
       throw new StopExecutionException("The 'android' plugin is required.")
     }
@@ -33,14 +32,42 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     productFlavorInput = project.screenshots.productFlavor
     locales = project.screenshots.locales
 
+    initDevicesDetails()
     putScreenshotsImagesInPlayFolders()
   }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    private void putScreenshotsImagesInPlayFolders() {
+      getScreenshotsImagesFolder()
+        .listFiles({ it.isDirectory() } as FileFilter)
+        .collect { ["dir": it, "device" : findDeviceForDirectory(it)] }
+        .collect { println " dir map : $it"}
+        .grep { it.get('device') }
+        .collect { println " dir/device after filtering by existence of device : $it"}
+        .each { it ->
+            File dir = it['dir'] as File
+            DeviceDetails device = it['device'] as DeviceDetails
+            dir.eachFileMatch(~/.*\.png/) {
+              println "found match file ${it.name}"
+              def foundlocalIndex = StringUtils.indexOfAny(it.name, project.screenshots.locales)
+              if (foundlocalIndex != -1) {
+                println " Passed by file ${it.name}"
+                def locale = it.name.substring(foundlocalIndex, foundlocalIndex + 5)
+                def localeFolder = getPlayLocalFolderName(locale)
+                println " local : $locale and localeFolder : $localeFolder"
+                copyImageToPlayFolder(it.name, it.path, playImagesDir(device, localeFolder), locale)
+              }
+            }
+        }
+    }
+
+/*
   private File[] putScreenshotsImagesInPlayFolders() {
     getScreenshotsImagesFolder()
         .listFiles({ it.isDirectory() } as FileFilter)
         .each { dir ->
       DeviceDetails device = findDeviceForDirectory(dir)
+      println "device result we got from findDeviceForDirectory : $device"
       if (device != null) {
         println " Found device dir : $dir"
         dir.eachFileRecurse {
@@ -59,17 +86,13 @@ public class ProcessSpoonOutputTask extends DefaultTask {
       }
     }
   }
+*/
 
   File getScreenshotsImagesFolder() {
     //TODO: use $productFlavorInput only if non empty
     def path = "${project.screenshots.buildDestDir ?: project.projectDir}/spoon-output/image/"
-    println " screenshots sources folder path : $path"
-    def file = new File(path)
-    if (file == null) {
-      println "Screenshots folder not found."
-      throw new IllegalArgumentException("Screenshots folder not found.")
-    }
-    file
+    println "screenshots folder"
+    new File(path)
   }
 
   static String getPlayLocalFolderName(String locale) {
@@ -77,13 +100,30 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     // of ro-RU we need to have play folder for RO
   }
 
+/*
   //TODO: fix this, right now it works only emulators names and not phone.
   DeviceDetails findDeviceForDirectory(File dir) {
-    //this part works for emulator
-    //def serialNo = dir.name.findAll(~/\d+_/).join(".").replace("_", "")
-    def serialNo = dir.name.findAll(~/\d+_/).collect{ it.replace("_", "") }.join(".")
+    def serialNo = dir.name.findAll(~/\d+_/).collect { it.replace("_", "") }.join(".")
     serialNo = serialNo ?: dir.name
-    this.devicesDetails.find({ it.serialNo.contains(serialNo) })
+    println " findDeviceForDirectory for dir ${dir.name} sn : $serialNo"
+    println " All device details that we have : $devicesDetails"
+    return this.devicesDetails.findResult {
+      it.serialNo.contains(serialNo)
+      println " found $it"
+    } as DeviceDetails
+  }
+*/
+
+  DeviceDetails findDeviceForDirectory(File dir) {
+    //this part works for emulator
+    def patternDeviceNbPart = ~/\d+_/
+    def deviceSerialNumber = dir.name.findAll(patternDeviceNbPart).join(".").replace("_", "")
+    println deviceSerialNumber
+    if (deviceSerialNumber == null || deviceSerialNumber.empty) {
+      deviceSerialNumber = dir.name
+    }
+    def device = this.devicesDetails.find({ it.serialNo.contains(deviceSerialNumber) })
+    device
   }
 
   void copyImageToPlayFolder(fileName, path, playImagesDir, locale) {
@@ -98,9 +138,8 @@ public class ProcessSpoonOutputTask extends DefaultTask {
 
   String playImagesDir(DeviceDetails deviceDetails, String localeFolder) {
     def playImagesDir = "${project.getProjectDir()}/$PLAY_FOLDER_RELATIVE_PATH/${localeFolder.replace("_", "-")}/listing/"
-    def dirs = [PHONE: "phoneScreenshots", SEVEN_INCH_DEVICE: "sevenInchScreenshots",
-               TEN_INCH_DEVICE: "tenInchScreenshots"]
-    dirs.findResult { type, dir ->
+    def dirs = [PHONE: "phoneScreenshots", SEVEN_INCH_DEVICE: "sevenInchScreenshots", TEN_INCH_DEVICE: "tenInchScreenshots"]
+    return dirs.findResult { type, dir ->
       deviceDetails.type == type ? playImagesDir + dir : playImagesDir
     }
   }
@@ -114,9 +153,9 @@ public class ProcessSpoonOutputTask extends DefaultTask {
   }
 
   private void addDevice(String type, String serialNo) {
-    if(serialNo) { //since Groovy truth says that a null or empty string is false
+    if (serialNo) {
+      //since Groovy truth says that a null or empty string is false
       this.devicesDetails.add(new DeviceDetails(type, serialNo))
     }
   }
-
 }

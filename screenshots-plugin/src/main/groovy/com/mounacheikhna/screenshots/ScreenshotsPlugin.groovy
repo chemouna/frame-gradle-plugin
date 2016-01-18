@@ -17,7 +17,7 @@ class ScreenshotsPlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
-
+    println "apply plugin"
     if (!hasPlugin(project, AppPlugin)) {
       throw new StopExecutionException("The 'com.android.application' plugin is required.")
     }
@@ -30,31 +30,35 @@ class ScreenshotsPlugin implements Plugin<Project> {
             copies them into play folder each in the right place.'''
 
     project.afterEvaluate {
+      println "afterEvaluate"
       Task imageMagicAll = createImageMagicAllTask(project)
       //TODO: we should change the local of the device -> how about starting it ourself
 
       List<String> locales = project.screenshots.locales
-      Task spoonForAllLocales = project.tasks.create("spoonForAllLocales")
 
       String productFlavor = project.screenshots.productFlavor
       def flavorTaskName = productFlavor.capitalize()
-      spoonForAllLocales.dependsOn project.tasks.findByName("assemble$flavorTaskName")
-      spoonForAllLocales.dependsOn project.tasks.findByName("assembleAndroidTest")
+      allScreenshotsTask.dependsOn project.tasks.findByName("assemble$flavorTaskName")
+      allScreenshotsTask.dependsOn project.tasks.findByName("assembleAndroidTest")
 
       locales.each {
         println "For locale $it" //maybe the pb is that this cleans the folder ? -> Yes it does
         Task spoonLocalTask = createSpoonRunTaskByLocale(project, it)
 
-        Task localScreenshotsTask = project.tasks.create("$it$TASK_PREFIX", ProcessSpoonOutputTask) // i need to pass param local to this
+        Task localScreenshotsTask = project.tasks.create("$it$TASK_PREFIX", ProcessSpoonOutputTask)
+        // i need to pass param local to this
         imageMagicAll.dependsOn spoonLocalTask
         localScreenshotsTask.dependsOn imageMagicAll
 
+        println " Before allScreenshotsTask.dependsOn localScreenshotsTask "
         allScreenshotsTask.dependsOn localScreenshotsTask
       }
     }
   }
 
   private Task createSpoonRunTaskByLocale(Project project, String locale) {
+    println "createSpoonRunTaskByLocale"
+
     String productFlavor = project.screenshots.productFlavor
     String prefixApk = "${project.buildDir}/outputs/apk/app-$productFlavor-${project.screenshots.buildType}"
     String apkPath = "$prefixApk-unaligned.apk"
@@ -72,6 +76,8 @@ class ScreenshotsPlugin implements Plugin<Project> {
   }
 
   private Task createImageMagicAllTask(Project project) {
+    println "createImageMagicAllTask"
+
     String buildDestDir = project.screenshots.buildDestDir ?: project.buildDir
     String imagesParentFolder = "$buildDestDir/${project.screenshots.buildType}/image/"
     println " imagesParentFolder : $imagesParentFolder"
@@ -88,39 +94,41 @@ class ScreenshotsPlugin implements Plugin<Project> {
     new File(imagesParentFolder).listFiles({ it.isDirectory() } as FileFilter)
         .each {
       dir ->
-        dir.eachFileRecurse {
-          if (it.isFile() && it.name.contains(".png")) {
-            String imageFileName = it.name
-            String imTaskName = "im${dir.name}${imageFileName.replace(".png", "").replace("_", "")}Task"
-            def newTask = project.tasks.create(imTaskName) {
-              doLast {
-                //not the best way -> TODO: improve later
-                def taskSuffixName = "${dir.name}$imageFileName"
-                def c1 = project.tasks.create("c1$taskSuffixName", Exec) {
-                  workingDir dir
-                  commandLine "convert", "$imageFileName", "-resize", deviceFrameRequiredSize,
-                      "$imageFileName"
-                }.execute()
+        dir.eachFileMatch(~/.*\.png/) {
+          println "eachFileMatch for ${it.name}"
 
-                def c2 = project.tasks.create("c2$taskSuffixName", Exec) {
-                  workingDir dir
-                  commandLine "convert", "$frameFileName", "$imageFileName",
-                      "-gravity", "center", "-compose", "over", "-composite",
-                      "-fill", "gold", "-channel", "RGBA", "-opaque", "none", "$imageFileName"
-                }.execute()
-
-                def c3 = project.tasks.create("c3$taskSuffixName", Exec) {
-                  workingDir dir
-                  commandLine "convert", "$imageFileName", "-background", "Gold", "-gravity",
-                      "North",
-                      "-pointsize", "$labelTextSize", "-density", "100", "-fill", "white",
-                      "-annotate", "+0+$topOffset", "$screenshotsTitle",
-                      "$imageFileName"
-                }.execute()
-              }
-            }
-            imageMagicAll.dependsOn newTask
+          String imageFileName = it.name
+          String imTaskName = "im${dir.name}${imageFileName.replace(".png", "").replace("_", "")}Task"
+          Task imTask = project.tasks.create(imTaskName)
+          def taskSuffixName = "${dir.name}$imageFileName"
+          Task resizeTask = project.tasks.create("c1$taskSuffixName", Exec) {
+            println "resizeTask"
+            workingDir dir
+            commandLine "convert", "$imageFileName", "-resize", deviceFrameRequiredSize,
+                "$imageFileName"
           }
+
+          Task composeTask = project.tasks.create("c2$taskSuffixName", Exec) {
+            println "composeTask"
+            workingDir dir
+            commandLine "convert", "$frameFileName", "$imageFileName",
+                "-gravity", "center", "-compose", "over", "-composite",
+                "-fill", "gold", "-channel", "RGBA", "-opaque", "none", "$imageFileName"
+          }
+
+          Task backgroundLabelTask = project.tasks.create("c3$taskSuffixName", Exec) {
+            println "backgroundLabelTask"
+            workingDir dir
+            commandLine "convert", "$imageFileName", "-background", "Gold", "-gravity",
+                "North",
+                "-pointsize", "$labelTextSize", "-density", "100", "-fill", "white",
+                "-annotate", "+0+$topOffset", "$screenshotsTitle",
+                "$imageFileName"
+          }
+          imTask.dependsOn resizeTask
+          imTask.dependsOn composeTask
+          imTask.dependsOn backgroundLabelTask
+          imageMagicAll.dependsOn imTask
         }
     }
     imageMagicAll.group = GROUP_SCREENSHOTS

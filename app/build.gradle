@@ -52,10 +52,12 @@ screenshots {
   //
   // buildDestDir = "$buildDir/custom-report-dir"
   //phone="192.168.56.101:5555"
-  phone="emulator-5554" + ""
+  //phone="emulator-5554"
+
+  phone="041e4f7325232e3c"
   sevenInchDevice="" //""emulator-5556"
   tenInchDevice="" //"emulator-5554"
-  locales=["fr_FR", "en_US", "es_ES"]
+  locales=["fr_FR"/*, "en_US", "es_ES"*/]
 
   buildType = "debug"
   productFlavor = "screenshots"
