@@ -36,6 +36,7 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     putScreenshotsImagesInPlayFolders()
   }
 
+/*
     @SuppressWarnings("GroovyAssignabilityCheck")
     private void putScreenshotsImagesInPlayFolders() {
       getScreenshotsImagesFolder()
@@ -60,38 +61,31 @@ public class ProcessSpoonOutputTask extends DefaultTask {
             }
         }
     }
+*/
 
-/*
   private File[] putScreenshotsImagesInPlayFolders() {
     getScreenshotsImagesFolder()
         .listFiles({ it.isDirectory() } as FileFilter)
         .each { dir ->
       DeviceDetails device = findDeviceForDirectory(dir)
-      println "device result we got from findDeviceForDirectory : $device"
       if (device != null) {
-        println " Found device dir : $dir"
         dir.eachFileRecurse {
           CharSequence cs = it.name
           CharSequence[] locales = project.screenshots.locales
           def foundlocalIndex = StringUtils.indexOfAny(cs, locales)
           if (it.isFile() && it.name.contains(".png") && foundlocalIndex != -1) {
-            println " Passed by file ${it.name}"
             def locale = it.name.substring(foundlocalIndex, foundlocalIndex + 5)
             def localeFolder = getPlayLocalFolderName(locale)
             copyImageToPlayFolder(it.name, it.path, playImagesDir(device, localeFolder), locale)
           }
         }
-      } else {
-        println "Couldn't find a device dir"
       }
     }
   }
-*/
 
   File getScreenshotsImagesFolder() {
     //TODO: use $productFlavorInput only if non empty
     def path = "${project.screenshots.buildDestDir ?: project.projectDir}/spoon-output/image/"
-    println "screenshots folder"
     new File(path)
   }
 
@@ -105,11 +99,8 @@ public class ProcessSpoonOutputTask extends DefaultTask {
   DeviceDetails findDeviceForDirectory(File dir) {
     def serialNo = dir.name.findAll(~/\d+_/).collect { it.replace("_", "") }.join(".")
     serialNo = serialNo ?: dir.name
-    println " findDeviceForDirectory for dir ${dir.name} sn : $serialNo"
-    println " All device details that we have : $devicesDetails"
     return this.devicesDetails.findResult {
       it.serialNo.contains(serialNo)
-      println " found $it"
     } as DeviceDetails
   }
 */
@@ -118,7 +109,6 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     //this part works for emulator
     def patternDeviceNbPart = ~/\d+_/
     def deviceSerialNumber = dir.name.findAll(patternDeviceNbPart).join(".").replace("_", "")
-    println deviceSerialNumber
     if (deviceSerialNumber == null || deviceSerialNumber.empty) {
       deviceSerialNumber = dir.name
     }
@@ -127,8 +117,8 @@ public class ProcessSpoonOutputTask extends DefaultTask {
   }
 
   void copyImageToPlayFolder(fileName, path, playImagesDir, locale) {
-    println " Copying screenshot $fileName from $path to $playImagesDir for $locale"
-    project.tasks.create("copy$fileName", Copy) {
+    project.tasks.cr
+    eate("copy$fileName", Copy) {
       from path
       into playImagesDir
       rename "(.*)_($locale)_(.*).png", '$3.png'
@@ -140,7 +130,8 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     def playImagesDir = "${project.getProjectDir()}/$PLAY_FOLDER_RELATIVE_PATH/${localeFolder.replace("_", "-")}/listing/"
     def dirs = [PHONE: "phoneScreenshots", SEVEN_INCH_DEVICE: "sevenInchScreenshots", TEN_INCH_DEVICE: "tenInchScreenshots"]
     return dirs.findResult { type, dir ->
-      deviceDetails.type == type ? playImagesDir + dir : playImagesDir
+      type.equalsIgnoreCase(deviceDetails.type) ? "$playImagesDir" +
+          "$dir" : playImagesDir
     }
   }
 
