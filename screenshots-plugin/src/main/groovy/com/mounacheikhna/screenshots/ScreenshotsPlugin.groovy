@@ -43,7 +43,6 @@ class ScreenshotsPlugin implements Plugin<Project> {
 
       Task processTask = project.tasks.create("$it$TASK_PREFIX", ProcessSpoonOutputTask)
       Task convertImagesTask = createImageMagicAllTask(project)
-
       convertImagesTask.dependsOn spoonTasks
       processTask.dependsOn convertImagesTask
 

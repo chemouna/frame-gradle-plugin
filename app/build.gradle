@@ -2,6 +2,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: com.mounacheikhna.screenshots.ScreenshotsPlugin
+apply plugin: "com.mounacheikhna.frame"
 
 android {
   compileSdkVersion 23

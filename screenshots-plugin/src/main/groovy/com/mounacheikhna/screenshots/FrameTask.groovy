@@ -11,6 +11,8 @@ public class FrameTask extends DefaultTask {
 
     private static final String GROUP_SCREENSHOTS = "screenshots"
 
+    //TODO: make this tasks accept as a parameters input dir , frames dir, ... instead of directly using project
+    
     @TaskAction
     void performTask() {
         String buildDestDir = project.screenshots.buildDestDir ?: "spoon-output"
