@@ -36,33 +36,6 @@ public class ProcessSpoonOutputTask extends DefaultTask {
     putScreenshotsImagesInPlayFolders()
   }
 
-/*
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    private void putScreenshotsImagesInPlayFolders() {
-      getScreenshotsImagesFolder()
-        .listFiles({ it.isDirectory() } as FileFilter)
-        .collect { ["dir": it, "device" : findDeviceForDirectory(it)] }
-        .collect { println " dir map : $it"}
-        .grep { it.get('device') }
-        .collect { println " dir/device after filtering by existence of device : $it"}
-        .each { it ->
-            File dir = it['dir'] as File
-            DeviceDetails device = it['device'] as DeviceDetails
-            dir.eachFileMatch(~/.*\.png/) {
-              println "found match file ${it.name}"
-              def foundlocalIndex = StringUtils.indexOfAny(it.name, project.screenshots.locales)
-              if (foundlocalIndex != -1) {
-                println " Passed by file ${it.name}"
-                def locale = it.name.substring(foundlocalIndex, foundlocalIndex + 5)
-                def localeFolder = getPlayLocalFolderName(locale)
-                println " local : $locale and localeFolder : $localeFolder"
-                copyImageToPlayFolder(it.name, it.path, playImagesDir(device, localeFolder), locale)
-              }
-            }
-        }
-    }
-*/
-
   private File[] putScreenshotsImagesInPlayFolders() {
     getScreenshotsImagesFolder()
         .listFiles({ it.isDirectory() } as FileFilter)
@@ -117,8 +90,7 @@ public class ProcessSpoonOutputTask extends DefaultTask {
   }
 
   void copyImageToPlayFolder(fileName, path, playImagesDir, locale) {
-    project.tasks.cr
-    eate("copy$fileName", Copy) {
+    project.tasks.create("copy$fileName", Copy) {
       from path
       into playImagesDir
       rename "(.*)_($locale)_(.*).png", '$3.png'

@@ -10,8 +10,14 @@ class ScreenshotsExtension {
   String sevenInchDevice
   String tenInchDevice
 
+  //it would be cool to have some options to pass localized
+  //custom input like in blablacar with departure & arrival that need
+  //to be per country
+
   List<String> locales = []
 
   String buildType
   String productFlavor
+  String screenshotsClass
+
 }
