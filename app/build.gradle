@@ -2,7 +2,8 @@
 
 apply plugin: "com.android.application"
 apply plugin: "com.mounacheikhna.screenshots"
-apply plugin: "com.mounacheikhna.frame"
+//
+// apply plugin: "com.mounacheikhna.frame"
 
 android {
   compileSdkVersion 23
@@ -64,9 +65,11 @@ screenshots {
   screenshotsClass = "com.mounacheikhna.screenshots.ScreenshotsTest"
 }
 
+/*
 frames {
   framesDir = "${project.projectDir}/frames"
   selectedFrame = "galaxy_nexus_port_back.png"
 }
+*/
 
 

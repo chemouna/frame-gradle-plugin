@@ -79,14 +79,8 @@ class ScreenshotsPlugin implements Plugin<Project> {
 
   //this is the part that i need to seperate into its own plugin -> let start by making a task
   //is the unit of a plugin enough ?
-  private static Task createImageMagicAllTask(Project project) {
-    Task imageMagicAll = project.tasks.create("imageMagicAll", FrameTask) {
-      framesDir "${project.projectDir}/frames"
-      selectedFrame "galaxy_nexus_port_back.png"
-    }
-    imageMagicAll.group = GROUP_SCREENSHOTS
-    imageMagicAll
-  }
+
+
 
   static def hasPlugin(Project project, Class<? extends Plugin> plugin) {
     return project.plugins.hasPlugin(plugin)

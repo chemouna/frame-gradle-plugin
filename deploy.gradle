@@ -1,0 +1,91 @@
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply from: rootProject.file('root_pom.gradle')
+
+
+def isReleaseBuild() {
+    return rootProject.ext.versionName.contains("SNAPSHOT") == false
+}
+
+def getReleaseRepositoryUrl() {
+    return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('sonatypeUsername') ? sonatypeUsername : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('sonatypePassword') ? sonatypePassword : ""
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.groupId = rootProject.ext.group
+                pom.version = rootProject.ext.versionName
+                pom.artifactId = rootProject.ext.pom_artifact_id
+
+                repository(url: getReleaseRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+                snapshotRepository(url: getSnapshotRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+
+                pom.project {
+                    name project.ext.pom_name
+                    packaging project.ext.pom_packaging
+                    description project.ext.pom_description
+                    url project.ext.pom_url
+
+                    scm {
+                        url rootProject.ext.pom_scm_url
+                        connection rootProject.ext.pom_scm_connection
+                        developerConnection rootProject.ext.pom_scm_dev_connection
+                    }
+
+                    licenses {
+                        license {
+                            name rootProject.ext.pom_licence_name
+                            url rootProject.ext.pom_licence_url
+                            distribution rootProject.ext.pom_licence_dist
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id rootProject.ext.pom_developer_id
+                            name rootProject.ext.pom_developer_name
+                            email rootProject.ext.pom_developer_email
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    artifacts {
+        archives androidSourcesJar
+        //archives androidJavadocsJar
+    }
+
+}
