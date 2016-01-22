@@ -10,10 +10,13 @@ class FramePlugin implements Plugin<Project> {
   @Override
   void apply(Project project) {
 
-    project.extensions.add("frames", ScreenshotsExtension)
+    project.extensions.add("frames", FrameExtension)
 
     project.afterEvaluate {
-      project.tasks.create("FrameScreenshots", FrameTask)
+      project.tasks.create("FrameScreenshots", FrameTask) {
+        framesDir project.frames.framesDir
+        selectedFrame project.frames.selectedFrame
+      }
     }
   }
 

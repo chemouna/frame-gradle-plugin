@@ -7,26 +7,33 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
-public class FrameTask extends DefaultTask {
+public class FrameTask extends DefaultTask implements FrameSpec {
 
     private static final String GROUP_SCREENSHOTS = "screenshots"
 
+    //TODO: later make it a set of paths to allow setting up multiple frames folders and make also
+    //accept a dir or a path
+    private String framesDir;
+    private String selectedFrame;
+
     //TODO: make this tasks accept as a parameters input dir , frames dir, ... instead of directly using project
-    
+
     @TaskAction
     void performTask() {
         String buildDestDir = project.screenshots.buildDestDir ?: "spoon-output"
         //String imagesParentFolder = "$buildDestDir/${project.screenshots.buildType}/image/"
         String imagesParentFolder = "${project.projectDir}/$buildDestDir/image/"
-
         //TODO: make getting this frame more dynamic so that users can use the frame they want.
-        String frameFileName = "${project.projectDir}/frames/galaxy_nexus_port_back.png";
+        //String frameFileName = "${project.projectDir}/frames/galaxy_nexus_port_back.png";*/
+
+        String frameFileName = "$framesDir/$selectedFrame"
+
+        println " frameFileName : $frameFileName"
 
         String deviceFrameRequiredSize = "1270x1290"
         String labelTextSize = "40"
         String topOffset = "40"
-        String screenshotsTitle = "Title for this screenshot"
-
+        String screenshotsTitle = "Title for this screenshot" //TODO: we need a title per screenshot
 
             //doLast {
                 //TODO: some parameters should be provided by user such as background color, text label, frame file path
@@ -69,5 +76,23 @@ public class FrameTask extends DefaultTask {
         imageMagicAll*/
     }
 
+    @Override
+    void setFramesDir(String dir) {
+        this.framesDir = dir
+    }
 
+    @Override
+    void framesDir(String dir) {
+        this.framesDir = dir
+    }
+
+    @Override
+    void setSelectedFrame(String frameName) {
+        this.selectedFrame = frameName
+    }
+
+    @Override
+    void selectedFrame(String frameName) {
+        this.selectedFrame = frameName
+    }
 }

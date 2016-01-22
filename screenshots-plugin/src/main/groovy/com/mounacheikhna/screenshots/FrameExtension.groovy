@@ -5,8 +5,9 @@ package com.mounacheikhna.screenshots
  */
 class FrameExtension {
 
-  String buildDestDir
-  String devicesFramesDir
+  //String buildDestDir
+  String framesDir
+  String selectedFrame
 
   //TODO: add the locales and the text that should be in each key
   //maybe a config file for that ?

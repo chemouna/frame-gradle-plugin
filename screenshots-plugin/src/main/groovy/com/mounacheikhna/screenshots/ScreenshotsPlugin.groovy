@@ -42,9 +42,13 @@ class ScreenshotsPlugin implements Plugin<Project> {
       }
 
       Task processTask = project.tasks.create("$it$TASK_PREFIX", ProcessSpoonOutputTask)
-      Task convertImagesTask = createImageMagicAllTask(project)
-      convertImagesTask.dependsOn spoonTasks
-      processTask.dependsOn convertImagesTask
+      //Task convertImagesTask = createImageMagicAllTask(project)
+      //convertImagesTask.dependsOn spoonTasks
+      //processTask.dependsOn convertImagesTask
+
+      //temp
+      processTask.dependsOn spoonTasks
+      //
 
       allScreenshotsTask.dependsOn processTask
     }
@@ -65,10 +69,9 @@ class ScreenshotsPlugin implements Plugin<Project> {
     Task task = project.tasks.create("${locale}spoonRunTask", Exec) {
       commandLine "java", "-jar", "$spoonRunnerLibPath",
           "--apk", "$apkPath", "--test-apk", "$testApkPath",
-          //"--class-name", "com.mounacheikhna.screenshots.ScreenshotsTest",
           "--class-name", project.screenshots.screenshotsClass,
           "--e", "locale=$locale",
-          "--sdk", "/Users/m.cheikhna/Library/Android/sdk"
+          "--sdk", "/Users/cheikhnamouna/Library/Android/sdk"
 
     }
     task
@@ -77,7 +80,10 @@ class ScreenshotsPlugin implements Plugin<Project> {
   //this is the part that i need to seperate into its own plugin -> let start by making a task
   //is the unit of a plugin enough ?
   private static Task createImageMagicAllTask(Project project) {
-    Task imageMagicAll = project.tasks.create("imageMagicAll", FrameTask)
+    Task imageMagicAll = project.tasks.create("imageMagicAll", FrameTask) {
+      framesDir "${project.projectDir}/frames"
+      selectedFrame "galaxy_nexus_port_back.png"
+    }
     imageMagicAll.group = GROUP_SCREENSHOTS
     imageMagicAll
   }
