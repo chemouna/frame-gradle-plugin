@@ -15,7 +15,7 @@ buildscript {
 
 apply plugin: "com.android.application"
 apply plugin: "com.mounacheikhna.screenshots"
-apply plugin: "com.mounacheikhne.screenshots.frame"
+//apply plugin: "com.mounacheikhne.screenshots.frame"
 
 
 android {
@@ -83,13 +83,15 @@ screenshots {
 }
 
 
+/*
 frames {
-  screenshotsDir = "spoon-output/image/"
-  framesDir = "${project.projectDir}/frames"
+  //screenshotsDir = "spoon-output/image"
+  screenshotsDir = "screenshots"
+  framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
-
-  titles = ["from": "Title for From word (M)."]
+  titles = ["from": "Title for From (Test)."]
 
 }
+*/
 
 

@@ -11,9 +11,9 @@ buildscript {
   }
 }
 
-/*plugins {
-  id "com.mounacheikhne.screenshots.frame" version "0.1.1"
-}*/
+plugins {
+  id "com.mounacheikhne.screenshots.frame" version "0.1.2"
+}
 
 apply plugin: 'com.android.application'
 
@@ -46,15 +46,17 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:23.+'
+  compile 'com.android.support:appcompat-v7:23.1.1'
   compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-/*
-frames {
-  framesDir = "${project.projectDir}/frames"
-  selectedFrame = "galaxy_nexus_port_back.png"
 
+frames {
+  screenshotsDir = "screenshots"
+  framesDir = "frames"
+  selectedFrame = "galaxy_nexus_port_back.png"
+  titles = ["from": "Title for From (Test)."]
 }
 
-*/
+
+
