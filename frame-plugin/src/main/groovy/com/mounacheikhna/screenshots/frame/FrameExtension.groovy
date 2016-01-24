@@ -1,4 +1,4 @@
-package mounacheikhna.screenshots.frame
+package com.mounacheikhna.screenshots.frame
 
 /**
  * Created by m.cheikhna on 15/01/2015.

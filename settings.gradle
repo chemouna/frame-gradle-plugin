@@ -1,5 +1,5 @@
 rootProject.name = 'screenshots'
 
-include /*':screenshots-plugin',*/ ':frame-plugin'
+include ':screenshots-plugin', ':frame-plugin'
 include ':app'
 

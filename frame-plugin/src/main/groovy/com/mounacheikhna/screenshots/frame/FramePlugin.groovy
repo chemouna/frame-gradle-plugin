@@ -1,4 +1,4 @@
-package mounacheikhna.screenshots.frame
+package com.mounacheikhna.screenshots.frame
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

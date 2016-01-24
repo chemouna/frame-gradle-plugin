@@ -1,42 +1,41 @@
 
-repositories {
-    mavenCentral()
-    jcenter()
-    /*mavenLocal()
-    maven {
-        url uri('/Users/cheikhnamouna/.m2/repository')
-    }*/
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.3"
+    }
 }
 
+apply plugin: "com.gradle.plugin-publish"
+
 apply plugin: 'groovy'
-//apply plugin: 'maven'
-//apply from: project.file('frame-dependencies.gradle')
-//apply from: project.file('deploy.gradle')
 
 
+repositories {
+    jcenter()
+}
 dependencies {
     compile localGroovy()
     compile gradleApi()
 }
 
-/*
-apply from: 'https://raw.github.com/ichigotake/gradle-maven-local-deployer/master/build.gradle'
-def repositoryDir = "/Users/cheikhnamouna/.m2/repository";
-def mavenConfig = [
-    groupId: project.ext.group,
-    artifactId: project.ext.pom_artifact_id,
-    version: project.ext.version,
-]
-mavenLocalDeployer(repositoryDir, mavenConfig)
-*/
+version = "0.1.1"
+group = "com.mounacheikhna.screenshots"
 
-/*
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            mavenLocal()
+pluginBundle {
+    website = 'https://github.com/chemouna'
+    vcsUrl = 'https://github.com/chemouna'
+    description = 'Frame your android screenshots.'
+    tags = ['frame', 'screenshots', 'android']
+
+    plugins {
+        framePlugin {
+            id = 'com.mounacheikhne.screenshots.frame'
+            displayName = 'Gradle Framing screenshots plugin'
         }
     }
 }
-*/
-

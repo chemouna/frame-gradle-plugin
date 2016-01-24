@@ -6,6 +6,6 @@ repositories {
 }
 
 rootProject.dependencies {
-  //compile project(':screenshots-plugin')
-  //compile project(':frame-plugin')
+  compile project(':screenshots-plugin')
+  compile project(':frame-plugin')
 }

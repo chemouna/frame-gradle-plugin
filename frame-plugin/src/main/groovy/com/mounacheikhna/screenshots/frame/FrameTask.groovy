@@ -1,4 +1,4 @@
-package mounacheikhna.screenshots.frame
+package com.mounacheikhna.screenshots.frame
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Exec

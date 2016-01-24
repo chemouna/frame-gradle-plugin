@@ -3,16 +3,19 @@ buildscript {
   repositories {
     mavenLocal()
     jcenter()
-  }
-  dependencies {
-    //classpath 'com.mounacheikhna.screenshots:frame-plugin:0.1.1'
+    /*maven {
+      url "https://plugins.gradle.org/m2/"
+    }*/
   }
 }
 
+/*plugins {
+  id "com.mounacheikhne.screenshots.frame" version "0.1.1"
+}*/
+
 apply plugin: "com.android.application"
-//apply plugin: "com.mounacheikhna.screenshots"
-//apply plugin: "framing"
-//apply plugin: com.mounacheikhna.frame.FramePlugin
+apply plugin: "com.mounacheikhna.screenshots"
+apply plugin: "com.mounacheikhne.screenshots.frame"
 
 
 android {
@@ -64,30 +67,25 @@ dependencies {
 
 }
 
-/*
 screenshots {
   // buildDestDir = "$buildDir/custom-report-dir"
   //phone="emulator-5554"
 
-  phone="192.168.56.101:5555"
+  phone="041e4f7325232e3c"
   //phone="041e4f7325232e3c"
   sevenInchDevice="" //""emulator-5556"
   tenInchDevice="" //"emulator-5554"
-  locales=["fr_FR"*/
-/*, "en_US", "es_ES"*//*
-]
+  locales=["fr_FR"/*, "en_US", "es_ES"*/]
 
   buildType = "debug"
   productFlavor = "screenshots"
   screenshotsClass = "com.mounacheikhna.screenshots.ScreenshotsTest"
 }
-*/
 
-/*
+
 frames {
   framesDir = "${project.projectDir}/frames"
   selectedFrame = "galaxy_nexus_port_back.png"
 }
-*/
 
 

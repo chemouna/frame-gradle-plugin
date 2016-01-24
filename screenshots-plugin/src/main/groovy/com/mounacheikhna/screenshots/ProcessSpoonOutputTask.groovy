@@ -58,7 +58,7 @@ public class ProcessSpoonOutputTask extends DefaultTask {
 
   File getScreenshotsImagesFolder() {
     //TODO: use $productFlavorInput only if non empty
-    def path = "${project.screenshots.buildDestDir ?: project.projectDir}/spoon-output/image/"
+    def path = "${project.projectDir}/spoon-output/image/"
     new File(path)
   }
 
