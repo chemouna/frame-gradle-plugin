@@ -84,8 +84,10 @@ screenshots {
 
 
 frames {
+  screenshotsDir = "spoon-output/image/"
   framesDir = "${project.projectDir}/frames"
   selectedFrame = "galaxy_nexus_port_back.png"
+  processLocalPlayNaming = false
 }
 
 

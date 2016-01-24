@@ -5,13 +5,14 @@ package com.mounacheikhna.screenshots.frame
  */
 class FrameExtension {
 
-  //String buildDestDir
+  //should process this dir recursively
+  String screenshotsDir
   String framesDir
   String selectedFrame
+  boolean processLocalPlayNaming
 
   //TODO: add the locales and the text that should be in each key
   //maybe a config file for that ?
-
   //List<String> locales = []
 
 }

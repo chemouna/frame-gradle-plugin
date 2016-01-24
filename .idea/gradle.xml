@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/frame-plugin" />
+            <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>
         <option name="myModules">
@@ -19,6 +20,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/frame-plugin" />
+            <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,0 +1,61 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:1.2.3'
+  }
+}
+
+/*plugins {
+  id "com.mounacheikhne.screenshots.frame" version "0.1.1"
+}*/
+
+apply plugin: 'com.android.application'
+
+repositories {
+  jcenter()
+}
+
+android {
+  compileSdkVersion 23
+  buildToolsVersion "23.0.2"
+
+  defaultConfig {
+    applicationId "com.mounacheikhna.screenshots.sample"
+    minSdkVersion 8
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_6
+    targetCompatibility JavaVersion.VERSION_1_6
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile 'com.android.support:appcompat-v7:23.+'
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+/*
+frames {
+  framesDir = "${project.projectDir}/frames"
+  selectedFrame = "galaxy_nexus_port_back.png"
+
+  //processLocalPlayNaming = false
+}
+
+*/
