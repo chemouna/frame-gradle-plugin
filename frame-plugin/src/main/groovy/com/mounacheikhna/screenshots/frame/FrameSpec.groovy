@@ -15,4 +15,7 @@ interface FrameSpec {
   void setSelectedFrame(String frameName)
   void selectedFrame(String frameName)
 
+  void titles(Map<String, String> title)
+  void setTitles(Map<String, String> title)
+
 }

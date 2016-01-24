@@ -1,5 +1,4 @@
 package com.mounacheikhna.screenshots.frame
-
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
@@ -9,7 +8,7 @@ class FrameExtension {
   String screenshotsDir
   String framesDir
   String selectedFrame
-  boolean processLocalPlayNaming
+  Map<String, String> titles
 
   //TODO: add the locales and the text that should be in each key
   //maybe a config file for that ?

@@ -10,8 +10,9 @@ import org.gradle.api.tasks.TaskAction
 class FrameTask extends DefaultTask implements FrameSpec {
 
   private String screenshotsDir
-  private String framesDir;
-  private String selectedFrame;
+  private String framesDir
+  private String selectedFrame
+  private Map<String, String> titles
 
   @TaskAction
   void performTask() {
@@ -21,7 +22,8 @@ class FrameTask extends DefaultTask implements FrameSpec {
     String deviceFrameRequiredSize = "1270x1290"
     String labelTextSize = "40"
     String topOffset = "40"
-    String screenshotsTitle = "Title for this screenshot"
+
+    Map<String, String> screenshotsTitles = titles
 
     new File(screenshotsFolder).listFiles({ it.isDirectory() } as FileFilter)
             .each {
@@ -48,6 +50,14 @@ class FrameTask extends DefaultTask implements FrameSpec {
                       "-fill", "gold", "-channel", "RGBA", "-opaque", "none", "$imageFileName"
             }.execute()
 
+            def screenshotName = it.name
+            String screenshotsTitle = screenshotsTitles.findResult {
+              key, value -> if (screenshotName.contains(key)) return value
+            }
+            screenshotsTitle = screenshotsTitle ?: ""
+
+            //check if any key of titles is contained in it.name
+            //-> check if any of a map is contained in a string
             //put background and title
             project.tasks.create("c3$taskSuffixName", Exec) {
               workingDir imageDir
@@ -93,4 +103,13 @@ class FrameTask extends DefaultTask implements FrameSpec {
     this.selectedFrame = frameName
   }
 
+  @Override
+  void titles(Map<String, String> titles) {
+    this.titles = titles
+  }
+
+  @Override
+  void setTitles(Map<String, String> title) {
+    this.titles = titles
+  }
 }

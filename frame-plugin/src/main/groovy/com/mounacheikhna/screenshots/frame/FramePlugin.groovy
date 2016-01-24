@@ -21,6 +21,7 @@ class FramePlugin implements Plugin<Project> {
         screenshotsDir project.frames.screenshotsDir
         framesDir project.frames.framesDir
         selectedFrame project.frames.selectedFrame
+        titles project.frames.titles
       }
       frameTask.group = GROUP_SCREENSHOTS
     }

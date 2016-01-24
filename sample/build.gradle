@@ -55,7 +55,6 @@ frames {
   framesDir = "${project.projectDir}/frames"
   selectedFrame = "galaxy_nexus_port_back.png"
 
-  //processLocalPlayNaming = false
 }
 
 */
