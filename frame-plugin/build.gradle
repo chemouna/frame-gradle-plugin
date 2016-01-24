@@ -1,12 +1,42 @@
 
-apply plugin: 'groovy'
-
 repositories {
     mavenCentral()
     jcenter()
+    /*mavenLocal()
+    maven {
+        url uri('/Users/cheikhnamouna/.m2/repository')
+    }*/
 }
 
+apply plugin: 'groovy'
+//apply plugin: 'maven'
+//apply from: project.file('frame-dependencies.gradle')
+//apply from: project.file('deploy.gradle')
+
+
 dependencies {
-    compile gradleApi()
     compile localGroovy()
+    compile gradleApi()
 }
+
+/*
+apply from: 'https://raw.github.com/ichigotake/gradle-maven-local-deployer/master/build.gradle'
+def repositoryDir = "/Users/cheikhnamouna/.m2/repository";
+def mavenConfig = [
+    groupId: project.ext.group,
+    artifactId: project.ext.pom_artifact_id,
+    version: project.ext.version,
+]
+mavenLocalDeployer(repositoryDir, mavenConfig)
+*/
+
+/*
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            mavenLocal()
+        }
+    }
+}
+*/
+

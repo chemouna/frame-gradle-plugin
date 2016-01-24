@@ -1,9 +1,19 @@
 
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+  dependencies {
+    //classpath 'com.mounacheikhna.screenshots:frame-plugin:0.1.1'
+  }
+}
 
 apply plugin: "com.android.application"
-apply plugin: "com.mounacheikhna.screenshots"
-//
-// apply plugin: "com.mounacheikhna.frame"
+//apply plugin: "com.mounacheikhna.screenshots"
+//apply plugin: "framing"
+//apply plugin: com.mounacheikhna.frame.FramePlugin
+
 
 android {
   compileSdkVersion 23
@@ -36,11 +46,15 @@ configurations.all {
   resolutionStrategy.force 'com.android.support:support-annotations:23.1.1'
 }
 
+repositories {
+  mavenLocal()
+}
+
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:23.1.1'
   compile 'com.android.support:design:23.1.1'
+  testCompile 'junit:junit:4.12'
 
   androidTestCompile "com.android.support.test:runner:0.4.1"
   androidTestCompile "com.android.support.test:rules:0.4.1"
@@ -50,6 +64,7 @@ dependencies {
 
 }
 
+/*
 screenshots {
   // buildDestDir = "$buildDir/custom-report-dir"
   //phone="emulator-5554"
@@ -58,12 +73,15 @@ screenshots {
   //phone="041e4f7325232e3c"
   sevenInchDevice="" //""emulator-5556"
   tenInchDevice="" //"emulator-5554"
-  locales=["fr_FR"/*, "en_US", "es_ES"*/]
+  locales=["fr_FR"*/
+/*, "en_US", "es_ES"*//*
+]
 
   buildType = "debug"
   productFlavor = "screenshots"
   screenshotsClass = "com.mounacheikhna.screenshots.ScreenshotsTest"
 }
+*/
 
 /*
 frames {

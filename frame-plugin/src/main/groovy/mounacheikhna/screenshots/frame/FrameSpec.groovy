@@ -1,4 +1,4 @@
-package com.mounacheikhna.frame
+package mounacheikhna.screenshots.frame
 
 /**
  *

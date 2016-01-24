@@ -1,0 +1,21 @@
+ext {
+
+  version = "0.1.1"
+
+  group="com.mounacheikhna.screenshots"
+  pom_name="Frame screenshots."
+  pom_artifact_id="frame-plugin"
+  pom_packaging="aar"
+  pom_url="https://github.com/chemouna/Screenshots"
+  pom_description="A plugin to frame your screenshots"
+  pom_scm_url="https://github.com/chemouna/Screenshots"
+  pom_scm_connection="scm:git@github.com:chemouna/Screenshots.git"
+  pom_scm_dev_connection="scm:git@github.com:chemouna/Screenshots.git"
+  pom_licence_name="The Apache Software License, Version 2.0"
+  pom_licence_url="http://www.apache.org/licenses/LICENSE-2.0.txt"
+  pom_licence_dist="repo"
+  pom_developer_id="chemouna"
+  pom_developer_name="Mouna Cheikhna"
+  pom_developer_email="cheikhnamouna@gmail.com"
+
+}

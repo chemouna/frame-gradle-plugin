@@ -4,6 +4,7 @@ apply plugin: 'groovy'
 repositories {
     mavenCentral()
     jcenter()
+    mavenLocal()
 }
 
 dependencies {

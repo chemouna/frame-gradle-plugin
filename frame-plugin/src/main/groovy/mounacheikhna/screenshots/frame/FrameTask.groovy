@@ -1,4 +1,4 @@
-package com.mounacheikhna.frame
+package mounacheikhna.screenshots.frame
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Exec
@@ -7,7 +7,7 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
-public class FrameTask extends DefaultTask implements FrameSpec {
+class FrameTask extends DefaultTask implements FrameSpec {
 
     private static final String GROUP_SCREENSHOTS = "screenshots"
 

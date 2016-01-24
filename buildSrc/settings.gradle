@@ -1,5 +1,4 @@
-include ':screenshots-plugin'
-project(':screenshots-plugin').projectDir = new File('../screenshots-plugin')
+include /*':screenshots-plugin',*/ ':frame-plugin'
 
-/*include ':frame-plugin'
-project(':frame-plugin').projectDir = new File('../frame-plugin')*/
+//project(':screenshots-plugin').projectDir = new File('../screenshots-plugin')
+project(':frame-plugin').projectDir = new File('../frame-plugin')
