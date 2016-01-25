@@ -12,17 +12,20 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String framesDir
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
+  String backgroundColor
+  String textColor
+  int textSize = 100
+  int topOffset = 40
+
+  int density = 100
 
   @TaskAction
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolder = "${project.projectDir}/$screenshotsDir/"
-    //this is the one that can be provided by users
     String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
 
     String deviceFrameRequiredSize = "1270x1290"
-    String labelTextSize = "40"
-    String topOffset = "40"
 
     new File(screenshotsFolder).eachFileRecurse {
       if (it.isFile() && it.name.contains(".png")) {
@@ -45,7 +48,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
           workingDir imageDir
           commandLine "convert", "$frameFileName", "$imageFileName",
                   "-gravity", "center", "-compose", "over", "-composite",
-                  "-fill", "gold", "-channel", "RGBA", "-opaque", "none", "$imageFileName"
+                  "-fill", backgroundColor, "-channel", "RGBA", "-opaque", "none", "$imageFileName"
         }.execute()
 
         Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
@@ -57,9 +60,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         screenshotsTitle = screenshotsTitle ?: ""
         project.tasks.create("c3$taskSuffixName", Exec) {
           workingDir imageDir
-          commandLine "convert", "$imageFileName", "-background", "Gold", "-gravity",
-                  "North",
-                  "-pointsize", "$labelTextSize", "-density", "100", "-fill", "white",
+          commandLine "convert", "$imageFileName", "-background", backgroundColor, "-gravity",
+                  "North", "-pointsize", "$textSize", "-density", density, "-fill", textColor,
                   "-annotate", "+0+$topOffset", "${screenshotsTitle}",
                   "$imageFileName"
         }.execute()
@@ -115,5 +117,25 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void setLocalTitlesMap(Map<String, Map<String, String>> data) {
     this.localTitlesMap = data
+  }
+
+  @Override
+  void backgroundColor(String backgroundColor) {
+    this.backgroundColor = backgroundColor
+  }
+
+  @Override
+  void textColor(String textColor) {
+    this.textColor = textColor
+  }
+
+  @Override
+  void textSize(int textSize) {
+    this.textSize = textSize
+  }
+
+  @Override
+  void topOffset(int topOffset) {
+    this.topOffset = topOffset
   }
 }

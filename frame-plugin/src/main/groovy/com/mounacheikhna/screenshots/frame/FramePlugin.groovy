@@ -31,6 +31,10 @@ public class FramePlugin implements Plugin<Project> {
         framesDir project.frames.framesDir
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap
+        backgroundColor project.frames.backgroundColor
+        textColor project.frames.textColor
+        textSize project.frames.textSize
+        topOffset project.frames.topOffset
       }
     }
   }

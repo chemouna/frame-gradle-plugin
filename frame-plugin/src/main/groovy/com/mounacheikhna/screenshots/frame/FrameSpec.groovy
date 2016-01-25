@@ -21,4 +21,16 @@ interface FrameSpec {
   void localTitlesMap(Map<String, Map<String, String>> data)
   void setLocalTitlesMap(Map<String, Map<String, String>> data)
 
+  void setBackgroundColor(String backgroundColor)
+  void backgroundColor(String backgroundColor)
+
+  void setTextColor(String textColor)
+  void textColor(String textColor)
+
+  void setTextSize(int textSize)
+  void textSize(int textSize)
+
+  void setTopOffset(int topOffset)
+  void topOffset(int topOffset)
+
 }
