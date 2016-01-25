@@ -31,9 +31,9 @@ brew install imagemagick
 
 Sample
 ------
-See sample project for how to set, An example result :
+See sample project for how to set, Sample result :
 
-![Result sample](result/en_US_from_screenshots.png) ![Result sample](result/en_US_to_screenshots.png)
+![Result sample](result/en_US_from_screenshots.png)
 
 
 License
