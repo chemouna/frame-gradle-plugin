@@ -56,10 +56,10 @@ frames {
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
   localTitlesMap =  [
-          "en_US": ["from": "Title for From", "to": "Title for To"],
-          "fr_FR": ["from": "Titre pour From", "to": "Titre pour To"]
+          "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
+          "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
   ]
-  backgroundColor = "#4b0082"
+  backgroundColor = "#00cccc"
   textColor = "#FFFFFF"
   textSize = 40
   topOffset = 40
