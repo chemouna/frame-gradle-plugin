@@ -33,7 +33,7 @@ Sample
 ------
 See sample project for how to set, An example result :
 
-![Result sample](result/en_US_from_screenshots.png)
+![Result sample](result/en_US_from_screenshots.png) ![Result sample](result/en_US_to_screenshots.png)
 
 
 License
