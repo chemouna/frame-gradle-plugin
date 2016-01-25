@@ -33,7 +33,7 @@ Sample
 ------
 See sample project for how to set, An example result :
 
-[[https://github.com/chemouna/frame-gradle-plugin/blob/github/result/en_US_from_screenshots.png|alt=result]]
+![Result sample](result/en_US_from_screenshots.png)
 
 
 License
