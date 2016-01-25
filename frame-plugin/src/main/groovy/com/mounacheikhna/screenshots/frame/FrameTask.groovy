@@ -3,16 +3,15 @@ package com.mounacheikhna.screenshots.frame
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskAction
-
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
-class FrameTask extends DefaultTask implements FrameSpec {
+public class FrameTask extends DefaultTask implements FrameSpec {
 
-  private String screenshotsDir
-  private String framesDir
-  private String selectedFrame
-  private Map<String, String> titles
+  String screenshotsDir
+  String framesDir
+  String selectedFrame
+  Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
 
   @TaskAction
   void performTask() {
@@ -25,13 +24,14 @@ class FrameTask extends DefaultTask implements FrameSpec {
     String labelTextSize = "40"
     String topOffset = "40"
 
-    Map<String, String> screenshotsTitles = titles
-
     new File(screenshotsFolder).eachFileRecurse {
       if (it.isFile() && it.name.contains(".png")) {
         String imageFileName = it.name
         String taskSuffixName = "$imageFileName" //"${dir.name}$imageFileName"
         String imageDir = it.parent
+
+        String locale = localTitlesMap.keySet().findResult { if(imageFileName.contains(it)) return it }
+        if(locale == null) return
 
         //resize screenshot to frame size
         project.tasks.create("c1$taskSuffixName", Exec) {
@@ -48,15 +48,13 @@ class FrameTask extends DefaultTask implements FrameSpec {
                   "-fill", "gold", "-channel", "RGBA", "-opaque", "none", "$imageFileName"
         }.execute()
 
+        Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
+
         def screenshotName = it.name
         String screenshotsTitle = screenshotsTitles.findResult {
           key, value -> if (screenshotName.contains(key)) return value
         }
         screenshotsTitle = screenshotsTitle ?: ""
-
-        //check if any key of titles is contained in it.name
-        //-> check if any of a map is contained in a string
-        //put background and title
         project.tasks.create("c3$taskSuffixName", Exec) {
           workingDir imageDir
           commandLine "convert", "$imageFileName", "-background", "Gold", "-gravity",
@@ -99,7 +97,7 @@ class FrameTask extends DefaultTask implements FrameSpec {
     this.selectedFrame = frameName
   }
 
-  @Override
+  /*@Override
   void titles(Map<String, String> titles) {
     this.titles = titles
   }
@@ -107,5 +105,15 @@ class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void setTitles(Map<String, String> title) {
     this.titles = titles
+  }*/
+
+  @Override
+  void localTitlesMap(Map<String, Map<String, String>> data) {
+    this.localTitlesMap = data
+  }
+
+  @Override
+  void setLocalTitlesMap(Map<String, Map<String, String>> data) {
+    this.localTitlesMap = data
   }
 }

@@ -2,16 +2,34 @@ package com.mounacheikhna.screenshots.frame
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
-class FrameExtension {
+public class FrameExtension {
 
-  //should process this dir recursively
   String screenshotsDir
   String framesDir
   String selectedFrame
-  Map<String, String> titles
+  //NamedDomainObjectContainer<LocalTitle> localTitles
+  Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
 
-  //TODO: add the locales and the text that should be in each key
-  //maybe a config file for that ?
-  //List<String> locales = []
+  public FrameExtension() {
+  }
 
+  public FrameExtension(String screenshotsDir, String framesDir, String selectedFrame,
+          Map<String, Map<String, String>> localTitlesMap) {
+    this.screenshotsDir = screenshotsDir
+    this.framesDir = framesDir
+    this.selectedFrame = selectedFrame
+    this.localTitlesMap = localTitlesMap
+  }
+
+  public FrameExtension(Map<String, Map<String, String>> localTitlesMap) {
+    this.localTitlesMap = localTitlesMap
+  }
+
+  /*FrameExtension(NamedDomainObjectContainer<LocalTitle> localTitles) {
+      this.localTitles = localTitles
+    }
+
+    def localTitles(Closure closure) {
+      localTitles.configure {closure}
+    }*/
 }

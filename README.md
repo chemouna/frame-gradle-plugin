@@ -25,7 +25,7 @@ brew install imagemagick
    }
 
    plugins {
-     id "com.mounacheikhne.screenshots.frame" version "0.1.2"
+     id "com.mounacheikhna.screenshots.frame" version "0.1.3"
    }
    ```
 

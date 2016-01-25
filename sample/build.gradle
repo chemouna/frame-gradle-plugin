@@ -12,7 +12,7 @@ buildscript {
 }
 
 plugins {
-  id "com.mounacheikhne.screenshots.frame" version "0.1.2"
+  id "com.mounacheikhna.screenshots.frame" version "0.1.3"
 }
 
 apply plugin: 'com.android.application'
@@ -55,7 +55,10 @@ frames {
   screenshotsDir = "screenshots"
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
-  titles = ["from": "Title for From (Test)."]
+  localTitlesMap =  [
+          "en_US": ["from": "Title for From", "to": "Title for To"],
+          "fr_FR": ["from": "Titre pour From", "to": "Titre pour To"]
+  ]
 }
 
 
