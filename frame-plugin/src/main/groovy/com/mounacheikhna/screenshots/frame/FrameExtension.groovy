@@ -7,7 +7,6 @@ public class FrameExtension {
   String screenshotsDir
   String framesDir
   String selectedFrame
-  //NamedDomainObjectContainer<LocalTitle> localTitles
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
   String backgroundColor
   String textColor
@@ -17,11 +16,4 @@ public class FrameExtension {
   public FrameExtension() {
   }
 
-  /*FrameExtension(NamedDomainObjectContainer<LocalTitle> localTitles) {
-      this.localTitles = localTitles
-    }
-
-    def localTitles(Closure closure) {
-      localTitles.configure {closure}
-    }*/
 }

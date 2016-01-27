@@ -11,17 +11,7 @@ public class FramePlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
-
     project.extensions.add("frames", FrameExtension)
-
-    //def localTitlesContainer = project.container(LocalTitle)
-    /*project.configure(project) {
-      project.extensions.create("frames", FrameExtension*//*, localTitlesContainer*//*)
-    }*/
-
-    /*localTitlesContainer.whenObjectAdded { LocalTitle localTitle ->
-      addLocalTitle(localTitle)
-    }*/
 
     project.afterEvaluate {
       project.task("FrameScreenshots",
