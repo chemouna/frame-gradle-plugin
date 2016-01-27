@@ -1,8 +1,10 @@
 package com.mounacheikhna.screenshots.frame
 
+import groovy.io.FileType
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskAction
+
 /**
  * Created by m.cheikhna on 15/01/2015.
  */
@@ -13,10 +15,10 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
   String backgroundColor
+  String backgroundImage
   String textColor
   int textSize = 100
   int topOffset = 40
-
   int density = 100
 
   @TaskAction
@@ -27,28 +29,34 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
     String deviceFrameRequiredSize = "1270x1290"
 
-    new File(screenshotsFolder).eachFileRecurse {
-      if (it.isFile() && it.name.contains(".png")) {
+    new File(screenshotsFolder).eachFileRecurse(FileType.FILES) {
+      if (it.name.contains(".png")) {
         String imageFileName = it.name
-        String taskSuffixName = "$imageFileName" //"${dir.name}$imageFileName"
+        String taskSuffixName = "$imageFileName"
         String imageDir = it.parent
-
         String locale = localTitlesMap.keySet().findResult { if(imageFileName.contains(it)) return it }
         if(locale == null) return
 
         //resize screenshot to frame size
         project.tasks.create("c1$taskSuffixName", Exec) {
           workingDir imageDir
-          commandLine "convert", "$imageFileName", "-resize", deviceFrameRequiredSize,
-                  "$imageFileName"
+          commandLine "convert", "$imageFileName", "-resize", "$deviceFrameRequiredSize", "$imageFileName"
         }.execute()
 
         //put screenshot in a frame
+        List<String> frameArgs = ["convert", "$frameFileName", "$imageFileName",
+                                  "-gravity", "center", "-compose", "over", "-composite",
+                                  "-fill"]
+        if(backgroundColor?.trim()) {
+          frameArgs.add(backgroundColor)
+        }
+        else if(backgroundImage?.trim()){
+          frameArgs.add("${project.projectDir}/$backgroundImage")
+        }
+        frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "$imageFileName"])
         project.tasks.create("c2$taskSuffixName", Exec) {
           workingDir imageDir
-          commandLine "convert", "$frameFileName", "$imageFileName",
-                  "-gravity", "center", "-compose", "over", "-composite",
-                  "-fill", backgroundColor, "-channel", "RGBA", "-opaque", "none", "$imageFileName"
+          commandLine frameArgs
         }.execute()
 
         Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
@@ -60,7 +68,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         screenshotsTitle = screenshotsTitle ?: ""
         project.tasks.create("c3$taskSuffixName", Exec) {
           workingDir imageDir
-          commandLine "convert", "$imageFileName", "-background", backgroundColor, "-gravity",
+          commandLine "convert", "$imageFileName", "-gravity",
                   "North", "-pointsize", "$textSize", "-density", density, "-fill", textColor,
                   "-annotate", "+0+$topOffset", "${screenshotsTitle}",
                   "$imageFileName"
@@ -99,16 +107,6 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     this.selectedFrame = frameName
   }
 
-  /*@Override
-  void titles(Map<String, String> titles) {
-    this.titles = titles
-  }
-
-  @Override
-  void setTitles(Map<String, String> title) {
-    this.titles = titles
-  }*/
-
   @Override
   void localTitlesMap(Map<String, Map<String, String>> data) {
     this.localTitlesMap = data
@@ -122,6 +120,16 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void backgroundColor(String backgroundColor) {
     this.backgroundColor = backgroundColor
+  }
+
+  @Override
+  void setBackgroundImage(String backgroundImage) {
+    this.backgroundImage = backgroundImage
+  }
+
+  @Override
+  void backgroundImage(String backgroundImage) {
+    this.backgroundImage = backgroundImage
   }
 
   @Override

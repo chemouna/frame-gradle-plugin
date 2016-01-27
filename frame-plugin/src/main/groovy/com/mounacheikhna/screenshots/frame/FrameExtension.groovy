@@ -9,11 +9,9 @@ public class FrameExtension {
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
   String backgroundColor
+  String backgroundImage
   String textColor
   int textSize
   int topOffset
-
-  public FrameExtension() {
-  }
 
 }

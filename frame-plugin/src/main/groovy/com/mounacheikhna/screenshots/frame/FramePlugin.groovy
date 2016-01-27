@@ -1,3 +1,4 @@
+
 package com.mounacheikhna.screenshots.frame
 
 import org.gradle.api.Plugin
@@ -22,6 +23,7 @@ public class FramePlugin implements Plugin<Project> {
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap
         backgroundColor project.frames.backgroundColor
+        backgroundImage project.frames.backgroundImage
         textColor project.frames.textColor
         textSize project.frames.textSize
         topOffset project.frames.topOffset

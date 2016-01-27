@@ -21,6 +21,9 @@ interface FrameSpec {
   void setBackgroundColor(String backgroundColor)
   void backgroundColor(String backgroundColor)
 
+  void setBackgroundImage(String backgroundImage)
+  void backgroundImage(String backgroundImage)
+
   void setTextColor(String textColor)
   void textColor(String textColor)
 
