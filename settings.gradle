@@ -1,4 +1,4 @@
-rootProject.name = 'screenshots'
+rootProject.name = 'frame-gradle-plugin'
 
 include ':frame-plugin', ':sample'
 //include ':app'

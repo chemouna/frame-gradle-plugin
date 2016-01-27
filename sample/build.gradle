@@ -11,11 +11,12 @@ buildscript {
   }
 }
 
-plugins {
+/*plugins {
   id "com.mounacheikhna.screenshots.frame" version "0.1.4"
-}
+}*/
 
 apply plugin: 'com.android.application'
+apply plugin: "com.mounacheikhna.screenshots.frame"
 
 repositories {
   jcenter()

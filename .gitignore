@@ -1,6 +1,6 @@
 # Built application files
 /*/build/
-
+s
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
@@ -48,4 +48,5 @@ build/intermediates/gradle_project_sync_data.bin
 screenshots-plugin
 app
 buildSrc
-.idea
+.idea/
+.idea/**
