@@ -12,7 +12,7 @@ buildscript {
 }
 
 /*plugins {
-  id "com.mounacheikhna.screenshots.frame" version "0.1.4"
+  id "com.mounacheikhna.screenshots.frame" version "0.1.5"
 }*/
 
 apply plugin: 'com.android.application'
