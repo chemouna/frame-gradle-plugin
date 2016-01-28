@@ -28,6 +28,24 @@ brew install imagemagick
      id "com.mounacheikhna.screenshots.frame" version "0.1.6"
    }
    ```
+3. Usage: In your app build.gradle file :
+ 
+   ```groovy
+   frames {
+     inputDir = "screenshots"
+     outputDir = "output"
+     framesDir = "frames"
+     selectedFrame = "galaxy_nexus_port_back.png"
+     localTitlesMap =  [
+             "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
+             "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
+     ]
+     backgroundColor = "#00cccc"
+     textColor = "#FFFFFF"
+     textSize = 40
+     topOffset = 40
+   }
+   ```
 
 Sample
 ------
