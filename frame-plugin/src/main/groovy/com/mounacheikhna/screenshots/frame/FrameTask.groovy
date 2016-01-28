@@ -26,56 +26,54 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolder = "${project.projectDir}/$screenshotsDir/"
-    String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
-
     new File(screenshotsFolder).eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
-        String imageFileName = it.name
-        String taskSuffixName = "$imageFileName"
-        String imageDir = it.parent
-        String locale = localTitlesMap.keySet().findResult { if(imageFileName.contains(it)) return it }
-        if(locale == null) return
-
-        //resize screenshot to frame size
-        resizeToFrameSize(taskSuffixName, it)
-
-        //put screenshot in a frame
-        List<String> frameArgs = ["convert", "$frameFileName", "$imageFileName",
-                                  "-gravity", "center", "-compose", "over", "-composite",
-                                  "-fill"]
-        if(backgroundColor?.trim()) {
-          frameArgs.add(backgroundColor)
-        }
-        else if(backgroundImage?.trim()) {
-          frameArgs.add("${project.projectDir}/$backgroundImage")
-        }
-        frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "$imageFileName"])
-        project.tasks.create("c2$taskSuffixName", Exec) {
-          workingDir imageDir
-          commandLine frameArgs
-        }.execute()
-
-        Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
-        def screenshotName = it.name
-        String screenshotsTitle = screenshotsTitles.findResult {
-          key, value -> if (screenshotName.contains(key)) return value
-        }
-        screenshotsTitle = screenshotsTitle ?: ""
-        project.tasks.create("c3$taskSuffixName", Exec) {
-          workingDir imageDir
-          commandLine "convert", "$imageFileName", "-gravity",
-                  "North", "-pointsize", "$textSize", "-density", density, "-fill", textColor,
-                  "-annotate", "+0+$topOffset", "${screenshotsTitle}",
-                  "$imageFileName"
-        }.execute()
+        resizeToFrameSize(it)
+        frameScreenshot(it)
+        addTitleToScreenshot(it)
       }
     }
   }
 
-  void resizeToFrameSize(String taskSuffixName, File file) {
-    project.tasks.create("c1$taskSuffixName", Exec) {
+  void resizeToFrameSize(File file) {
+    project.tasks.create("c1${file.name}", Exec) {
       workingDir file.parent
       commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize", "${file.name}"
+    }.execute()
+  }
+
+  void frameScreenshot(File file) {
+    String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
+    List<String> frameArgs = ["convert", "$frameFileName", "${file.name}",
+                              "-gravity", "center", "-compose", "over", "-composite",
+                              "-fill"]
+    if (backgroundColor?.trim()) {
+
+      frameArgs.add(backgroundColor)
+    } else if (backgroundImage?.trim()) {
+      frameArgs.add("${project.projectDir}/$backgroundImage")
+    }
+    frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "${file.name}"])
+    project.tasks.create("c2${file.name}", Exec) {
+      workingDir file.parent
+      commandLine frameArgs
+    }.execute()
+  }
+
+  void addTitleToScreenshot(File file) {
+    String locale = localTitlesMap.keySet().findResult { if (file.name.contains(it)) return it }
+
+    Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
+    String screenshotsTitle = screenshotsTitles.findResult {
+      key, value -> if (file.name.contains(key)) return value
+    }
+    screenshotsTitle = screenshotsTitle ?: ""
+    project.tasks.create("c3${file.name}", Exec) {
+      workingDir file.parent
+      commandLine "convert", "${file.name}", "-gravity",
+              "North", "-pointsize", "$textSize", "-density", density, "-fill", textColor,
+              "-annotate", "+0+$topOffset", "${screenshotsTitle}",
+              "${file.name}"
     }.execute()
   }
 
@@ -85,23 +83,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   @Override
-  void setScreenshotsDir(String dir) {
-    this.screenshotsDir = dir
-  }
-
-  @Override
-  void setFramesDir(String dir) {
-    this.framesDir = dir
-  }
-
-  @Override
   void framesDir(String dir) {
     this.framesDir = dir
-  }
-
-  @Override
-  void setSelectedFrame(String frameName) {
-    this.selectedFrame = frameName
   }
 
   @Override
@@ -115,18 +98,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   @Override
-  void setLocalTitlesMap(Map<String, Map<String, String>> data) {
-    this.localTitlesMap = data
-  }
-
-  @Override
   void backgroundColor(String backgroundColor) {
     this.backgroundColor = backgroundColor
-  }
-
-  @Override
-  void setBackgroundImage(String backgroundImage) {
-    this.backgroundImage = backgroundImage
   }
 
   @Override
