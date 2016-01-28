@@ -20,14 +20,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int textSize = 100
   int topOffset = 40
   int density = 100
+  String deviceFrameRequiredSize = "1270x1290"
 
   @TaskAction
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolder = "${project.projectDir}/$screenshotsDir/"
     String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
-
-    String deviceFrameRequiredSize = "1270x1290"
 
     new File(screenshotsFolder).eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
@@ -38,10 +37,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         if(locale == null) return
 
         //resize screenshot to frame size
-        project.tasks.create("c1$taskSuffixName", Exec) {
-          workingDir imageDir
-          commandLine "convert", "$imageFileName", "-resize", "$deviceFrameRequiredSize", "$imageFileName"
-        }.execute()
+        resizeToFrameSize(taskSuffixName, it)
 
         //put screenshot in a frame
         List<String> frameArgs = ["convert", "$frameFileName", "$imageFileName",
@@ -50,7 +46,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         if(backgroundColor?.trim()) {
           frameArgs.add(backgroundColor)
         }
-        else if(backgroundImage?.trim()){
+        else if(backgroundImage?.trim()) {
           frameArgs.add("${project.projectDir}/$backgroundImage")
         }
         frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "$imageFileName"])
@@ -60,7 +56,6 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         }.execute()
 
         Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
-
         def screenshotName = it.name
         String screenshotsTitle = screenshotsTitles.findResult {
           key, value -> if (screenshotName.contains(key)) return value
@@ -75,6 +70,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         }.execute()
       }
     }
+  }
+
+  void resizeToFrameSize(String taskSuffixName, File file) {
+    project.tasks.create("c1$taskSuffixName", Exec) {
+      workingDir file.parent
+      commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize", "${file.name}"
+    }.execute()
   }
 
   @Override

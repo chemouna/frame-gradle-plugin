@@ -1,4 +1,3 @@
-
 package com.mounacheikhna.screenshots.frame
 
 import org.gradle.api.Plugin
@@ -13,7 +12,6 @@ public class FramePlugin implements Plugin<Project> {
   @Override
   void apply(Project project) {
     project.extensions.add("frames", FrameExtension)
-
     project.afterEvaluate {
       project.task("FrameScreenshots",
               type: FrameTask,
