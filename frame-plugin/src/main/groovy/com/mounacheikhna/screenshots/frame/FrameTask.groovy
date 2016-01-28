@@ -2,6 +2,7 @@ package com.mounacheikhna.screenshots.frame
 
 import groovy.io.FileType
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskAction
 
@@ -26,8 +27,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @TaskAction
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
-    String screenshotsFolder = "${project.projectDir}/$inputDir/"
-    new File(screenshotsFolder).eachFileRecurse(FileType.FILES) {
+    String screenshotsFolderPath = "${project.projectDir}/$inputDir/"
+    if(isDirEmpty(screenshotsFolderPath)) {
+      throw new GradleException("Input directory is empty")
+    }
+
+    File screenshotsFolder = new File(screenshotsFolderPath)
+    screenshotsFolder.eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
         //TODO: maybe copy it to output folder before processing
         File output = resizeToFrameSize(it)
@@ -77,6 +83,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
               "-annotate", "+0+$topOffset", "${screenshotsTitle}",
               "${file.name}"
     }.execute()
+  }
+
+  def isDirEmpty = { dirName ->
+    def dir = new File("$dirName")
+    dir.exists() && dir.directory && (dir.list() as List).empty
   }
 
   @Override
