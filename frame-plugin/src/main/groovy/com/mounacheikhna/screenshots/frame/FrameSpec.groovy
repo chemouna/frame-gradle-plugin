@@ -6,7 +6,11 @@ package com.mounacheikhna.screenshots.frame
  */
 interface FrameSpec {
 
-  void screenshotsDir(String dir)
+  /** Input directory containing screenshots **/
+  void inputDir(String dir)
+
+  /** Directory in which to put the framed screenshots, if none is provided inputDir is used **/
+  void outputDir(String dir)
 
   void framesDir(String dir)
 

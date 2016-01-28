@@ -10,7 +10,8 @@ import org.gradle.api.tasks.TaskAction
  */
 public class FrameTask extends DefaultTask implements FrameSpec {
 
-  String screenshotsDir
+  String inputDir
+  String outputDir
   String framesDir
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
@@ -25,21 +26,24 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @TaskAction
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
-    String screenshotsFolder = "${project.projectDir}/$screenshotsDir/"
+    String screenshotsFolder = "${project.projectDir}/$inputDir/"
     new File(screenshotsFolder).eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
-        resizeToFrameSize(it)
-        frameScreenshot(it)
-        addTitleToScreenshot(it)
+        //TODO: maybe copy it to output folder before processing
+        File output = resizeToFrameSize(it)
+        frameScreenshot(output)
+        addScreenshotTitle(output)
       }
     }
   }
 
-  void resizeToFrameSize(File file) {
+  File resizeToFrameSize(File file) {
+    String outputFilePath = "${project.projectDir}/$outputDir/${file.name}"
     project.tasks.create("c1${file.name}", Exec) {
       workingDir file.parent
-      commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize", "${file.name}"
+      commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize", "$outputFilePath"
     }.execute()
+    return new File("$outputFilePath")
   }
 
   void frameScreenshot(File file) {
@@ -48,7 +52,6 @@ public class FrameTask extends DefaultTask implements FrameSpec {
                               "-gravity", "center", "-compose", "over", "-composite",
                               "-fill"]
     if (backgroundColor?.trim()) {
-
       frameArgs.add(backgroundColor)
     } else if (backgroundImage?.trim()) {
       frameArgs.add("${project.projectDir}/$backgroundImage")
@@ -60,9 +63,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     }.execute()
   }
 
-  void addTitleToScreenshot(File file) {
+  void addScreenshotTitle(File file) {
     String locale = localTitlesMap.keySet().findResult { if (file.name.contains(it)) return it }
-
     Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value -> if (file.name.contains(key)) return value
@@ -78,8 +80,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   @Override
-  void screenshotsDir(String dir) {
-    this.screenshotsDir = dir
+  void inputDir(String dir) {
+    this.inputDir = dir
+  }
+
+  @Override
+  void outputDir(String dir) {
+    this.outputDir = dir
   }
 
   @Override

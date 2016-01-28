@@ -16,7 +16,9 @@ public class FramePlugin implements Plugin<Project> {
       project.task("FrameScreenshots",
               type: FrameTask,
               group: GROUP_SCREENSHOTS) {
-        screenshotsDir project.frames.screenshotsDir
+        //TODO: is there an auto way for this in gradle ?
+        inputDir project.frames.inputDir
+        outputDir project.frames.outputDir
         framesDir project.frames.framesDir
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap

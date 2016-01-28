@@ -53,7 +53,8 @@ dependencies {
 
 
 frames {
-  screenshotsDir = "screenshots"
+  inputDir = "screenshots"
+  outputDir = "output"
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
   localTitlesMap =  [

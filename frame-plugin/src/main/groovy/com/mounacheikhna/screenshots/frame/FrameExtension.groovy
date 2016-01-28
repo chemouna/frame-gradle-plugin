@@ -4,7 +4,8 @@ package com.mounacheikhna.screenshots.frame
  */
 public class FrameExtension {
 
-  String screenshotsDir
+  String inputDir
+  String outputDir
   String framesDir
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
