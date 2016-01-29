@@ -32,18 +32,18 @@ brew install imagemagick
  
    ```groovy
    frames {
-     inputDir = "screenshots"
-     outputDir = "output"
-     framesDir = "frames"
-     selectedFrame = "galaxy_nexus_port_back.png"
-     localTitlesMap =  [
-             "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
-             "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
-     ]
-     backgroundColor = "#00cccc"
-     textColor = "#FFFFFF"
-     textSize = 40
-     topOffset = 40
+       inputDir = "screenshots"
+       outputDir = "output"
+       framesDir = "frames"
+       selectedFrame = "galaxy_nexus_port_back.png"
+       localTitlesMap =  [
+               "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
+               "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
+       ]
+       backgroundColor = "#00cccc"
+       textColor = "#FFFFFF"
+       textSize = 40
+       topOffset = 40
    }
    ```
 
