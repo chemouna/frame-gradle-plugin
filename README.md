@@ -9,13 +9,13 @@ Gradle Frame Android screenshots Plugin
 Usage
 ----
 
-1. install image imageMagick
+- install image imageMagick
 
 ```sh
 brew install imagemagick
 ```
 
-2. Add the following to your build.gradle
+- Add the following to your build.gradle
    (use the new plugin syntax for gradle `2.1+`)
 
    ```groovy
@@ -31,7 +31,7 @@ brew install imagemagick
      id "com.mounacheikhna.screenshots.frame" version "0.1.6"
    }
    ```
-3. Usage: In your app build.gradle file :
+- Usage: In your app build.gradle file :
  
    ```groovy
    frames {
