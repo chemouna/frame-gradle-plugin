@@ -52,7 +52,9 @@ brew install imagemagick
 
 Sample
 ------
-See sample project for how to set, Sample result :
+See sample project for how to set.
+
+Here's a sample result for screenshots for my app Alias : 
 
 <img src="result/en_US_list.png" width="250"/>    <img src="result/en_US_create.png" width="250"/>
 
