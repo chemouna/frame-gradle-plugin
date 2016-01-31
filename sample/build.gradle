@@ -57,11 +57,18 @@ frames {
   outputDir = "output"
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
-  localTitlesMap =  [
+  /*localTitlesMap =  [
           "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
           "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
+  ]*/
+
+  localTitlesMap =  [
+          "en_US": ["list": "Display a list of Routines", "create": "Create a new routine"],
+          "fr_FR": ["list": "Afficher une liste de routine", "create": "Créer un nouveau routine"],
+          "es_ES": ["list": "Mostrar una lista de rutinas", "create": "Crear una nueva rutina"]
   ]
-  backgroundColor = "#00cccc"
+
+  backgroundColor = "#4CAF50"
   textColor = "#FFFFFF"
   textSize = 40
   topOffset = 40

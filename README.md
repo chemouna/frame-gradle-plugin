@@ -54,7 +54,8 @@ Sample
 ------
 See sample project for how to set, Sample result :
 
-![Result sample](result/en_US_from_screenshots.png)
+<img src="result/en_US_list.png" width="200"/>
+
 
 
 License
