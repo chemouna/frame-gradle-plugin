@@ -2,7 +2,6 @@ Gradle Frame Android screenshots Plugin
 =========================================
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](https://github.com/chemouna/frame-gradle-plugin/blob/master/LICENSE.txt)
-[![Build Status](https://img.shields.io/travis/chemouna/frame-gradle-plugin/master.svg?style=flat)](https://travis-ci.org/chemouna/frame-gradle-plugin)
 
 ###### Automate putting your screenshots quickly into Android device frames with their titles.
 
