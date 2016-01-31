@@ -54,7 +54,7 @@ Sample
 ------
 See sample project for how to set, Sample result :
 
-<img src="result/en_US_list.png" width="200"/>
+<img src="result/en_US_list.png" width="250"/> <img src="result/en_US_create.png" width="250"/>
 
 
 
