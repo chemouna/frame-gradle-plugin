@@ -60,7 +60,7 @@ Here's a sample result for screenshots for my app Alias :
 
 <img src="result/fr_FR_list.png" width="250"/>    <img src="result/fr_FR_create.png" width="250"/>
 
-<img src="result/es_ES_list.png" width="250"/>    <img src="result/es_ES_list.png" width="250"/>
+<img src="result/es_ES_list.png" width="250"/>    <img src="result/es_ES_create.png" width="250"/>
 
 
 
