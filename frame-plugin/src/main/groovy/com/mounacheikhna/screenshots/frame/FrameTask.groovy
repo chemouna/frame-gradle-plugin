@@ -28,7 +28,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void performTask() {
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolderPath = "${project.projectDir}/$inputDir/"
-    if(isDirEmpty(screenshotsFolderPath)) {
+    if (isDirEmpty(screenshotsFolderPath)) {
       throw new GradleException("Input directory is empty")
     }
 
@@ -47,7 +47,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     String outputFilePath = "${project.projectDir}/$outputDir/${file.name}"
     project.tasks.create("c1${file.name}", Exec) {
       workingDir file.parent
-      commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize", "$outputFilePath"
+      commandLine "convert", "${file.name}", "-resize", "$deviceFrameRequiredSize",
+              "$outputFilePath"
     }.execute()
     return new File("$outputFilePath")
   }
@@ -59,11 +60,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     if (backgroundColor?.trim()) {
       frameArgs.add("-fill")
       frameArgs.add(backgroundColor)
+      frameArgs.addAll("-channel", "RGBA",)
     } else if (backgroundImage?.trim()) {
       frameArgs.add("-fill")
       frameArgs.add("${project.projectDir}/$backgroundImage")
+      frameArgs.addAll("-channel", "RGBA",)
     }
-    frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "${file.name}"])
+    frameArgs.addAll(["-opaque", "none", "${file.name}"])
     println "resizeToFrameSize frameArgs : $frameArgs "
     project.tasks.create("c2${file.name}", Exec) {
       workingDir file.parent
