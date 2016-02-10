@@ -55,14 +55,16 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void frameScreenshot(File file) {
     String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
     List<String> frameArgs = ["convert", "$frameFileName", "${file.name}",
-                              "-gravity", "center", "-compose", "over", "-composite",
-                              "-fill"]
+                              "-gravity", "center", "-compose", "over", "-composite"]
     if (backgroundColor?.trim()) {
+      frameArgs.add("-fill")
       frameArgs.add(backgroundColor)
     } else if (backgroundImage?.trim()) {
+      frameArgs.add("-fill")
       frameArgs.add("${project.projectDir}/$backgroundImage")
     }
     frameArgs.addAll(["-channel", "RGBA", "-opaque", "none", "${file.name}"])
+    println "resizeToFrameSize frameArgs : $frameArgs "
     project.tasks.create("c2${file.name}", Exec) {
       workingDir file.parent
       commandLine frameArgs
