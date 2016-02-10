@@ -27,7 +27,7 @@ brew install imagemagick
    }
 
    plugins {
-     id "com.mounacheikhna.screenshots.frame" version "0.1.7"
+     id "com.mounacheikhna.screenshots.frame" version "0.1.8"
    }
    ```
 - Configure the plugin in your app's `build.gradle` file :
