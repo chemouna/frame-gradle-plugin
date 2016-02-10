@@ -50,3 +50,5 @@ app
 buildSrc
 .idea/
 .idea/**
+
+sample/output
