@@ -10,8 +10,9 @@ buildscript {
     }
 }
 
-apply plugin: "com.gradle.plugin-publish"
+//TODO: add maven publishing with https://github.com/ajoberstar/gradle-git/blob/master/build.gradle
 
+apply plugin: "com.gradle.plugin-publish"
 apply plugin: 'groovy'
 
 repositories {
@@ -38,3 +39,20 @@ pluginBundle {
         }
     }
 }
+
+/*
+plugindev {
+    pluginImplementationClass 'com.mounacheikhna.screenshots.frame.FramePlugin'
+    pluginDescription 'Gradle Framing screenshots plugin'
+    pluginLicenses 'Apache-2.0'
+    pluginTags 'frame', 'screenshots', 'android'
+    authorId 'chemouna'
+    authorName 'Mouna Cheikhna'
+    authorEmail 'cheikhnamouna@gmail.com'
+    projectUrl 'https://github.com/chemouna/frame-gradle-plugin'
+    projectInceptionYear '2016'
+    done() // do not omit this
+}
+*/
+
+//apply from: '../deploy.gradle'
