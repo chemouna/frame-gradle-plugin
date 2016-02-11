@@ -52,3 +52,4 @@ buildSrc
 .idea/**
 
 sample/output
+old-.gradle/
