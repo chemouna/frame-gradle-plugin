@@ -30,6 +30,28 @@ brew install imagemagick
      id "com.mounacheikhna.screenshots.frame" version "0.1.8"
    }
    ```
+   
+   or Add a maven dependency :
+   ```maven
+   <dependency>
+     <groupId>com.mounacheikhna.screenshots</groupId>
+     <artifactId>frame-gradle-plugin</artifactId>
+     <version>0.1</version>
+   </dependency>
+   ```
+   or Gradle < 2.1 dependency
+   ```gradle
+   buildscript {
+       repositories {
+           mavenCentral()
+       }
+   
+       dependencies{
+           classpath 'com.mounacheikhna.screenshots:frame-gradle-plugin:0.1.8'
+       }
+   }    
+   ```
+   
 - Configure the plugin in your app's `build.gradle` file :
  
    ```groovy
