@@ -84,7 +84,16 @@ Here's a sample result for screenshots for my app Alias :
 <img src="result/es_ES_list.png" width="360"/>    <img src="result/es_ES_create.png" width="360"/>
 
 
+Contributing
+============
 
+#. `Check for open issues <https://github.com/chemouna/frame-gradle-plugin/issues>`_ or open
+   a fresh issue to start a discussion around a feature idea or a bug.
+#. Fork the `repository on Github <https://github.com/chemouna/frame-gradle-plugin>`_
+   to start making your changes.
+#. Send a pull request and bug the maintainer until it gets merged and published.
+   :) Make sure to add yourself to ``CONTRIBUTORS.txt``.
+   
 License
 -------
 
@@ -101,3 +110,4 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+

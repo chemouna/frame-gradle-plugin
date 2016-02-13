@@ -1,0 +1,11 @@
+# Contributions to the Gradle Frame Plugin project
+
+## Creator & Maintainer
+
+* Mouna Cheikhna <cheikhnamouna@gmail.com>
+
+
+## Contributors
+
+In chronological order:
+
