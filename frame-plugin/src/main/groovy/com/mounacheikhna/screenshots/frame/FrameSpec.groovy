@@ -28,4 +28,5 @@ interface FrameSpec {
 
   void topOffset(int topOffset)
 
+  void useConventionPlayFolders(boolean useConventionPlayFolders)
 }

@@ -23,10 +23,11 @@ public class FramePlugin implements Plugin<Project> {
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap
         backgroundColor project.frames.backgroundColor
-        backgroundImage project.frames.backgroundImage
+        backgroundImage project.frames.backgrou@ndImage
         textColor project.frames.textColor
         textSize project.frames.textSize
         topOffset project.frames.topOffset
+        useConventionPlayFolders project.frames.useConventionPlayFolders
       }
     }
   }

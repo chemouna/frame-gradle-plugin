@@ -14,5 +14,6 @@ public class FrameExtension {
   String textColor
   int textSize
   int topOffset
+  boolean useConventionPlayFolders
 
 }

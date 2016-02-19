@@ -23,6 +23,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int topOffset = 40
   int density = 100
   String deviceFrameRequiredSize = "1270x1290"
+  boolean useConventionPlayFolders
 
   @TaskAction
   void performTask() {
@@ -39,6 +40,17 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         File output = resizeToFrameSize(it)
         frameScreenshot(output)
         addScreenshotTitle(output)
+      }
+    }
+    if(useConventionPlayFolders) {
+      File outputFile = new File("${project.projectDir}/$outputDir")
+
+      File playFolder = new File("${project.projectDir}/src/main/play")
+      if(!playFolder.exists()) {
+        playFolder.createNewFile()
+      }
+      outputFile.eachFileRecurse(FileType.FILES) {
+
       }
     }
   }
@@ -139,4 +151,10 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void topOffset(int topOffset) {
     this.topOffset = topOffset
   }
+
+  @Override
+  void useConventionPlayFolders(boolean useConventionPlayFolders) {
+    this.useConventionPlayFolders = useConventionPlayFolders
+  }
+
 }

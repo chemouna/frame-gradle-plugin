@@ -7,7 +7,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.android.tools.build:gradle:2.0.0-beta5'
   }
 }
 
@@ -57,10 +57,6 @@ frames {
   outputDir = "output"
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
-  /*localTitlesMap =  [
-          "en_US": ["from": "Example screenshot title #1", "to": "Example screenshot title #2"],
-          "fr_FR": ["from": "Exemple pour titre screenshot #1", "to": "Exemple pour titre screenshot #2"]
-  ]*/
 
   localTitlesMap =  [
           "en_US": ["list": "Display a list of Routines", "create": "Create a new routine"],
@@ -72,6 +68,7 @@ frames {
   textColor = "#FFFFFF"
   textSize = 40
   topOffset = 40
+  useConventionPlayFolders = true
 }
 
 
