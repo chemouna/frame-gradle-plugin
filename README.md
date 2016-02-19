@@ -13,6 +13,10 @@ Usage
 ```sh
 brew install imagemagick
 ```
+and ghostscript for the text : 
+```sh
+brew install gs
+```
 
 - Add the following to your app's `build.gradle` file:
    (use the new plugin syntax for gradle `2.1+`)
