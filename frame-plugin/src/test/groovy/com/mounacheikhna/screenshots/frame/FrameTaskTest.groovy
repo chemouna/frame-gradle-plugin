@@ -11,6 +11,7 @@ import org.junit.Test
 /**
  * Created by cheikhnamouna on 1/24/16.
  */
+@Ignore
 class FrameTaskTest {
 
   public static final String FIXTURE_WORKING_DIR = new File("src/test/fixtures/app")
@@ -64,6 +65,25 @@ class FrameTaskTest {
     frameTask.topOffset(40)
 
     frameTask.execute()
+  }
+
+  @Test
+  public void outputFolderCreatedIfNotExists() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFileName("long-titles.json")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
   }
 
 }

@@ -40,6 +40,9 @@ public class FrameTask extends DefaultTask implements FrameSpec {
       throw new GradleException("Input directory is empty")
     }
 
+    if(!new File("${project.projectDir}/$outputDir").exists()) {
+      new File("${project.projectDir}/$outputDir").mkdirs()
+    }
     File screenshotsFolder = new File(screenshotsFolderPath)
     screenshotsFolder.eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
