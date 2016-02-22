@@ -36,5 +36,7 @@ class FrameTaskTest {
     frameTask.topOffset(40)
 
     frameTask.execute()
+
+    //TODO: add some assertions
   }
 }

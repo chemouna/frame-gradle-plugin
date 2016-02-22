@@ -25,12 +25,14 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int topOffset = 40
   int density = 100
   String deviceFrameRequiredSize = "1270x1290"
-  private String titlesFileName
-  private JsonSlurper jsonSlurper
+  String titlesFileName
+  JsonSlurper jsonSlurper
+  Map<String, Map<String, String>> titles
 
   @TaskAction
   void performTask() {
     jsonSlurper = new JsonSlurper()
+    titles = getTitles()
 
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolderPath = "${project.projectDir}/$inputDir/"
@@ -73,7 +75,6 @@ public class FrameTask extends DefaultTask implements FrameSpec {
       frameArgs.addAll("-channel", "RGBA",)
     }
     frameArgs.addAll(["-opaque", "none", "${file.name}"])
-    println "resizeToFrameSize frameArgs : $frameArgs "
     project.tasks.create("c2${file.name}", Exec) {
       workingDir file.parent
       commandLine frameArgs
@@ -81,8 +82,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   void addScreenshotTitle(File file) {
-    String locale = getTitles().keySet().findResult { if (file.name.contains(it)) return it }
-    Map<String, String> screenshotsTitles = getTitles().get(locale)
+    String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
+    Map<String, String> screenshotsTitles = titles.get(locale)
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value -> if (file.name.contains(key)) return value
     }
@@ -96,13 +97,12 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     }.execute()
   }
 
-  def Map<String, Map<String, String>> getTitles() {
+  Map<String, Map<String, String>> getTitles() {
     if(TextUtils.isEmpty(titlesFileName)) return localTitlesMap
-    File titlesFile = new File("${getProject().projectDir.getPath()}/titlesFileName")
+    File titlesFile = new File("${getProject().projectDir.getPath()}/${titlesFileName}")
     if(!titlesFile.exists()) return localTitlesMap
 
     def titlesJson = this.jsonSlurper.parse(titlesFile)
-
     Map<String, Map<String, String>> titles = new HashMap<>()
 
     titlesJson.titles.each {
