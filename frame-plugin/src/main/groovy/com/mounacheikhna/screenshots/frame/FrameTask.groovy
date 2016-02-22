@@ -98,7 +98,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   Map<String, Map<String, String>> getTitles() {
-    if(TextUtils.isEmpty(titlesFileName)) return localTitlesMap
+    if(! titlesFileName?.trim()) return localTitlesMap
     File titlesFile = new File("${getProject().projectDir.getPath()}/${titlesFileName}")
     if(!titlesFile.exists()) return localTitlesMap
 
