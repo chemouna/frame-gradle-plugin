@@ -6,11 +6,11 @@
       "screens": [
         {
           "keyword": "list",
-          "title": "Display a list of Routines",
+          "title": "Display a list of Routines"
         },
         {
           "keyword": "create",
-          "create": "Create a new routine"
+          "title": "Create a new routine"
         }
       ]
     },
@@ -19,11 +19,11 @@
       "screens": [
         {
           "keyword": "list",
-          "title": "Afficher une liste de routine",
+          "title": "Afficher une liste de routine"
         },
         {
           "keyword": "create",
-          "create": "Créer un nouveau routine"
+          "title": "Créer un nouveau routine"
         }
       ]
     },
@@ -32,11 +32,11 @@
       "screens": [
         {
           "keyword": "list",
-          "title": "Mostrar una lista de rutinas",
+          "title": "Mostrar una lista de rutinas"
         },
         {
           "keyword": "create",
-          "create": "Crear una nueva rutina"
+          "title": "Crear una nueva rutina"
         }
       ]
     }

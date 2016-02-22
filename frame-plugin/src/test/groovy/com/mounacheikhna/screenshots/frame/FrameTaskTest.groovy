@@ -5,6 +5,7 @@ import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -23,7 +24,7 @@ class FrameTaskTest {
   }
 
   @Test
-  public void testGenerateFramedScreenshots() {
+  public void allScreenshotsShouldBeFramed() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
 
     frameTask.inputDir("screenshots")
@@ -47,4 +48,22 @@ class FrameTaskTest {
       Assert.assertTrue(new File("${outputFolder.path}/$it").exists())
     }
   }
+
+  @Test
+  public void longTitlesShouldGoToNextLines() {
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFileName("long-titles.json")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+
+    frameTask.execute()
+  }
+
 }
