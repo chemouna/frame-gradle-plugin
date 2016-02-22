@@ -1,6 +1,7 @@
 package com.mounacheikhna.screenshots.frame
 
 import groovy.io.FileType
+import groovy.json.JsonSlurper
 import org.apache.http.util.TextUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
@@ -25,9 +26,12 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int density = 100
   String deviceFrameRequiredSize = "1270x1290"
   private String titlesFileName
+  private JsonSlurper jsonSlurper
 
   @TaskAction
   void performTask() {
+    jsonSlurper = new JsonSlurper()
+
     //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolderPath = "${project.projectDir}/$inputDir/"
     if (isDirEmpty(screenshotsFolderPath)) {
@@ -94,23 +98,22 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
   def Map<String, Map<String, String>> getTitles() {
     if(TextUtils.isEmpty(titlesFileName)) return localTitlesMap
-    File titlesFile = new File(titlesFileName)
-    if(!propertiesFile.exists()) return localTitlesMap
+    File titlesFile = new File("${getProject().projectDir.getPath()}/titlesFileName")
+    if(!titlesFile.exists()) return localTitlesMap
+
+    def titlesJson = this.jsonSlurper.parse(titlesFile)
 
     Map<String, Map<String, String>> titles = new HashMap<>()
 
-    Properties properties = ParseUtils.parseProperties(propertiesFile)
-
-    properties.each {
-      key, value ->
-      def locale = value
+    titlesJson.titles.each {
+      def locale = it.locale
       def values = new HashMap<String, String>()
-      properties.key.each {
-        values.put(it.)
+      it.screens.each {
+        values.put(it.keyword, it.title)
       }
+      titles.put(locale, values)
     }
-    //titles.put(it, new HashMap<String, String>())
-    return localTitlesMap;
+    return titles;
   }
 
   def isDirEmpty = { dirName ->
