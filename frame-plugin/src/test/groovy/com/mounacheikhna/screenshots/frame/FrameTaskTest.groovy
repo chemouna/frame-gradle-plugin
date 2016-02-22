@@ -65,7 +65,29 @@ class FrameTaskTest {
     frameTask.topOffset(40)
 
     frameTask.execute()
+    //TODO: somehow assert that there were line breaks for long titles
   }
+
+  @Test
+  public void lineBreaksOnTitlesShouldBeApplied() {
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFileName("titles-with-line-breaks.json")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+
+    frameTask.execute()
+
+    //TODO: somehow assert that line breaks were applied
+
+  }
+
 
   @Test
   public void outputFolderCreatedIfNotExists() {
