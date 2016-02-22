@@ -1,6 +1,7 @@
 package com.mounacheikhna.screenshots.frame
 
 import groovy.io.FileType
+import org.apache.http.util.TextUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Exec
@@ -23,6 +24,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int topOffset = 40
   int density = 100
   String deviceFrameRequiredSize = "1270x1290"
+  private String titlesFileName
 
   @TaskAction
   void performTask() {
@@ -75,8 +77,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   void addScreenshotTitle(File file) {
-    String locale = localTitlesMap.keySet().findResult { if (file.name.contains(it)) return it }
-    Map<String, String> screenshotsTitles = localTitlesMap.get(locale)
+    String locale = getTitles().keySet().findResult { if (file.name.contains(it)) return it }
+    Map<String, String> screenshotsTitles = getTitles().get(locale)
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value -> if (file.name.contains(key)) return value
     }
@@ -88,6 +90,27 @@ public class FrameTask extends DefaultTask implements FrameSpec {
               "-annotate", "+0+$topOffset", "${screenshotsTitle}",
               "${file.name}"
     }.execute()
+  }
+
+  def Map<String, Map<String, String>> getTitles() {
+    if(TextUtils.isEmpty(titlesFileName)) return localTitlesMap
+    File titlesFile = new File(titlesFileName)
+    if(!propertiesFile.exists()) return localTitlesMap
+
+    Map<String, Map<String, String>> titles = new HashMap<>()
+
+    Properties properties = ParseUtils.parseProperties(propertiesFile)
+
+    properties.each {
+      key, value ->
+      def locale = value
+      def values = new HashMap<String, String>()
+      properties.key.each {
+        values.put(it.)
+      }
+    }
+    //titles.put(it, new HashMap<String, String>())
+    return localTitlesMap;
   }
 
   def isDirEmpty = { dirName ->
@@ -118,6 +141,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void localTitlesMap(Map<String, Map<String, String>> data) {
     this.localTitlesMap = data
+  }
+
+  @Override
+  void titlesFileName(String titlesFileName) {
+    this.titlesFileName = titlesFileName
   }
 
   @Override

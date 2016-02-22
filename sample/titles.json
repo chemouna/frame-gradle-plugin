@@ -1,0 +1,44 @@
+{
+
+  "tiles": [
+    {
+      "locale": "en_US",
+      "screens": [
+        {
+          "keyword": "list",
+          "title": "Display a list of Routines",
+        },
+        {
+          "keyword": "create",
+          "create": "Create a new routine"
+        }
+      ]
+    },
+    {
+      "locale": "fr_FR",
+      "screens": [
+        {
+          "keyword": "list",
+          "title": "Afficher une liste de routine",
+        },
+        {
+          "keyword": "create",
+          "create": "Créer un nouveau routine"
+        }
+      ]
+    },
+    {
+      "locale": "es_ES",
+      "screens": [
+        {
+          "keyword": "list",
+          "title": "Mostrar una lista de rutinas",
+        },
+        {
+          "keyword": "create",
+          "create": "Crear una nueva rutina"
+        }
+      ]
+    }
+  ]
+}

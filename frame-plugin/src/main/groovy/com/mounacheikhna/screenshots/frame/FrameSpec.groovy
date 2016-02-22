@@ -18,6 +18,8 @@ interface FrameSpec {
 
   void localTitlesMap(Map<String, Map<String, String>> data)
 
+  void titlesFileName(String titlesFileName)
+
   void backgroundColor(String backgroundColor)
 
   void backgroundImage(String backgroundImage)
