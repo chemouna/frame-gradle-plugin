@@ -3,6 +3,7 @@ package com.mounacheikhna.screenshots.frame
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -37,6 +38,13 @@ class FrameTaskTest {
 
     frameTask.execute()
 
-    //TODO: add some assertions
+    File outputFolder = new File(FIXTURE_WORKING_DIR, "output")
+    Assert.assertTrue(outputFolder.list().length > 0)
+
+    File screenshotsFolder = new File(FIXTURE_WORKING_DIR, "screenshots")
+    //make sure that each screenshot has been framed
+    screenshotsFolder.list().each {
+      Assert.assertTrue(new File("${outputFolder.path}/$it").exists())
+    }
   }
 }
