@@ -2,7 +2,6 @@ package com.mounacheikhna.screenshots.frame
 
 import groovy.io.FileType
 import groovy.json.JsonSlurper
-import org.apache.http.util.TextUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Exec
@@ -28,6 +27,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String titlesFileName
   JsonSlurper jsonSlurper
   Map<String, Map<String, String>> titles
+  private String titlesFolder
 
   @TaskAction
   void performTask() {
@@ -40,7 +40,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
       throw new GradleException("Input directory is empty")
     }
 
-    if(!new File("${project.projectDir}/$outputDir").exists()) {
+    if (!new File("${project.projectDir}/$outputDir").exists()) {
       new File("${project.projectDir}/$outputDir").mkdirs()
     }
     File screenshotsFolder = new File(screenshotsFolderPath)
@@ -101,9 +101,34 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   Map<String, Map<String, String>> getTitles() {
-    if(! titlesFileName?.trim()) return localTitlesMap
+    if (titlesFileName?.trim()) return getTitlesFromTitlesFile()
+    if (titlesFolder?.trim()) return getTitlesFromTitlesFolder()
+    return localTitlesMap
+  }
+
+  Map<String, Map<String, String>> getTitlesFromTitlesFolder() {
+    File titlesFolder = new File("${getProject().projectDir.getPath()}/${titlesFolder}")
+    if (!titlesFolder.exists()) return localTitlesMap
+
+    Map<String, Map<String, String>> titles = new HashMap<>()
+
+    titlesFolder.eachFileRecurse(FileType.FILES, {
+      file ->
+        def locale = file.name.replace(".json", "")
+        def values = new HashMap<String, String>()
+        def titlesJson = this.jsonSlurper.parse(file)
+        titlesJson.screens.each {
+          values.put(it.keyword, it.title)
+        }
+        titles.put(locale, values)
+    })
+
+    return titles;
+  }
+
+  private Map<String, Map<String, String>> getTitlesFromTitlesFile() {
     File titlesFile = new File("${getProject().projectDir.getPath()}/${titlesFileName}")
-    if(!titlesFile.exists()) return localTitlesMap
+    if (!titlesFile.exists()) return localTitlesMap
 
     def titlesJson = this.jsonSlurper.parse(titlesFile)
     Map<String, Map<String, String>> titles = new HashMap<>()
@@ -152,6 +177,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void titlesFileName(String titlesFileName) {
     this.titlesFileName = titlesFileName
+  }
+
+  @Override
+  void titlesFolder(String titlesFolder) {
+    this.titlesFolder = titlesFolder
   }
 
   @Override

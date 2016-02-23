@@ -10,6 +10,7 @@ public class FrameExtension {
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
   String titlesFileName
+  String titlesFolder
   String backgroundColor
   String backgroundImage
   String textColor

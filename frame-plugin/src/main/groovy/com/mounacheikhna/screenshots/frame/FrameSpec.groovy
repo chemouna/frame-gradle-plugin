@@ -20,6 +20,8 @@ interface FrameSpec {
 
   void titlesFileName(String titlesFileName)
 
+  void titlesFolder(String titlesFolder)
+
   void backgroundColor(String backgroundColor)
 
   void backgroundImage(String backgroundImage)

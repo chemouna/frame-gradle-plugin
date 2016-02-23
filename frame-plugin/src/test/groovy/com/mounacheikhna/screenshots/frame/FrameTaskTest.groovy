@@ -3,6 +3,7 @@ package com.mounacheikhna.screenshots.frame
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Ignore
@@ -22,6 +23,13 @@ class FrameTaskTest {
     project = ProjectBuilder.builder().withProjectDir(new File(FIXTURE_WORKING_DIR)).build()
     project.apply plugin: 'java'
     project.evaluate()
+
+    /*def outputFile = new File(FIXTURE_WORKING_DIR, "output")
+    if(outputFile.exists()) {
+      outputFile.listFiles().each {
+        File file -> file.delete()
+      }
+    }*/
   }
 
   @Test
@@ -106,6 +114,28 @@ class FrameTaskTest {
     frameTask.execute()
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+  }
+
+  @Test
+  public void titlesFromFolderShouldBeApplied() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFolder("titles")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+    Assert.assertTrue(new File("${project.projectDir.path}/output").list().length
+          == new File("${project.projectDir.path}/screenshots").list().length)
+
   }
 
 }

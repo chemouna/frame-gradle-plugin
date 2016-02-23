@@ -23,6 +23,7 @@ public class FramePlugin implements Plugin<Project> {
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap
         titlesFileName project.frames.titlesFileName
+        titlesFolder project.frames.titlesFolder
         backgroundColor project.frames.backgroundColor
         backgroundImage project.frames.backgroundImage
         textColor project.frames.textColor
