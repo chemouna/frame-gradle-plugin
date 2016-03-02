@@ -22,7 +22,7 @@ public class FramePlugin implements Plugin<Project> {
         framesDir project.frames.framesDir
         selectedFrame project.frames.selectedFrame
         localTitlesMap project.frames.localTitlesMap
-        titlesJsonFile project.frames.titlesFileName
+        titlesJsonFile project.frames.titlesJsonFile
         titlesFolder project.frames.titlesFolder
         backgroundColor project.frames.backgroundColor
         backgroundImage project.frames.backgroundImage
