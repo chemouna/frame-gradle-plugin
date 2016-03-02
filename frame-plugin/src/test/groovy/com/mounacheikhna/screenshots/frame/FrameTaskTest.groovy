@@ -135,7 +135,27 @@ class FrameTaskTest {
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
     Assert.assertTrue(new File("${project.projectDir.path}/output").list().length
           == new File("${project.projectDir.path}/screenshots").list().length)
-
   }
+
+  @Test
+  public void propertiesTitlesFromFolderShouldBeApplied() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFolder("config")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+    //TODO: assert that there are as many generated files in the output as nb screenshots x nb of properties files
+  }
+
 
 }
