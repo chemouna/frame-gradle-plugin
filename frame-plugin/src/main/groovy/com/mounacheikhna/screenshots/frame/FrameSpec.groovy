@@ -18,7 +18,7 @@ interface FrameSpec {
 
   void localTitlesMap(Map<String, Map<String, String>> data)
 
-  void titlesFileName(String titlesFileName)
+  void titlesJsonFile(String titlesJsonFile)
 
   void titlesFolder(String titlesFolder)
 

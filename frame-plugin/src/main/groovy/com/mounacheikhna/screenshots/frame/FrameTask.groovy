@@ -24,7 +24,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   int topOffset = 40
   int density = 100
   String deviceFrameRequiredSize = "1270x1290"
-  String titlesFileName
+  String titlesJsonFile
   JsonSlurper jsonSlurper
   Map<String, Map<String, String>> titles
   private String titlesFolder
@@ -101,7 +101,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   Map<String, Map<String, String>> getTitles() {
-    if (titlesFileName?.trim()) return getTitlesFromTitlesFile()
+    if (titlesJsonFile?.trim()) return getTitlesFromJsonFile()
     if (titlesFolder?.trim()) return getTitlesFromTitlesFolder()
     return localTitlesMap
   }
@@ -111,26 +111,47 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     if (!titlesFolder.exists()) return localTitlesMap
 
     Map<String, Map<String, String>> titles = new HashMap<>()
-
     titlesFolder.eachFileRecurse(FileType.FILES, {
       file ->
-        def locale = file.name.replace(".json", "")
-        def values = new HashMap<String, String>()
-        def titlesJson = this.jsonSlurper.parse(file)
-        titlesJson.screens.each {
-          values.put(it.keyword, it.title)
+        if(file.name.contains(".json")) {
+          def locale = file.name.replace(".json", "")
+          def values = new HashMap<String, String>()
+          def titlesJson = this.jsonSlurper.parse(file)
+          titlesJson.screens.each {
+            values.put(it.keyword, it.title)
+          }
+          titles.put(locale, values)
         }
-        titles.put(locale, values)
+        else if(file.name.contains(".properties")) {
+          println " config filename : ${file.name}"
+          def FIRST_LOCAL_PART = /\s+/
+          def SECOND_LOCAL_PART = /\s+/
+          def REST = /\s+/
+          def matcher = file.name =~/($FIRST_LOCAL_PART)_($SECOND_LOCAL_PART)_($REST).properties/
+          println " matcher : $matcher"
+
+          def locale = "${FIRST_LOCAL_PART}_${SECOND_LOCAL_PART}"
+          println " locale : $locale"
+
+          def values = new HashMap<String, String>()
+
+          Properties properties = ParseUtils.parseProperties(file.path)
+          properties.each {
+            println " Properties el : $it"
+            values.put(it.key, it.value)
+          }
+          titles.put(locale, values)
+        }
     })
 
     return titles;
   }
 
-  private Map<String, Map<String, String>> getTitlesFromTitlesFile() {
-    File titlesFile = new File("${getProject().projectDir.getPath()}/${titlesFileName}")
-    if (!titlesFile.exists()) return localTitlesMap
+  private Map<String, Map<String, String>> getTitlesFromJsonFile() {
+    File titlesJsonFile = new File("${getProject().projectDir.getPath()}/${this.titlesJsonFile}")
+    if (!titlesJsonFile.exists()) return localTitlesMap
 
-    def titlesJson = this.jsonSlurper.parse(titlesFile)
+    def titlesJson = this.jsonSlurper.parse(titlesJsonFile)
     Map<String, Map<String, String>> titles = new HashMap<>()
 
     titlesJson.titles.each {
@@ -175,8 +196,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   @Override
-  void titlesFileName(String titlesFileName) {
-    this.titlesFileName = titlesFileName
+  void titlesJsonFile(String titlesJsonFile) {
+    this.titlesJsonFile = titlesJsonFile
   }
 
   @Override

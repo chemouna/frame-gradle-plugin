@@ -51,21 +51,13 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-
 frames {
   inputDir = "screenshots"
   outputDir = "output"
   framesDir = "frames"
   selectedFrame = "galaxy_nexus_port_back.png"
-
-  /*localTitlesMap =  [
-          "en_US": ["list": "Display a list of Routines", "create": "Create a new routine"],
-          "fr_FR": ["list": "Afficher une liste de routine", "create": "Créer un nouveau routine"],
-          "es_ES": ["list": "Mostrar una lista de rutinas", "create": "Crear una nueva rutina"]
-  ]*/
-
-  titlesFileName = "titles.json"
-
+  //titlesFileName = "titles.json"
+  titlesFolder = "config"
   backgroundColor = "#4CAF50"
   textColor = "#FFFFFF"
   textSize = 40
