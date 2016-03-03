@@ -86,7 +86,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
   void addScreenshotTitle(File file) {
     String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
-    Map<String, String> screenshotsTitles = titles.get(locale) //weird it doesnt get by key locale here !!
+    Map<String, String> screenshotsTitles = titles.get(locale) //weird it doesn't get by key locale here !!
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value -> if (file.name.contains(key)) return value
     }
@@ -123,18 +123,14 @@ public class FrameTask extends DefaultTask implements FrameSpec {
           titles.put(locale, values)
         }
         else if(file.name.contains(".properties")) {
-          println " config filename : ${file.name}"
           def matcher = (file.name =~/([a-z]*)_([A-Z]*)_(.*)/)[0]
-          println " matcher : $matcher"
           def locale = "${matcher[1]}_${matcher[2]}"
-          println " locale : $locale"
 
           def values = new HashMap<String, String>()
 
           Properties properties = ParseUtils.parseProperties(file.path)
           properties.each {
-            println " Properties el : $it"
-            values.put(it.key, it.value)
+              values.put(it.key, it.value)
           }
           titles.put(locale, values)
         }
