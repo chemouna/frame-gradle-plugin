@@ -86,7 +86,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
   void addScreenshotTitle(File file) {
     String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
-    Map<String, String> screenshotsTitles = titles.get(locale) //weird it doesn't get by key locale here !!
+    Map<String, String> screenshotsTitles = titles.get("$locale") //weird it doesn't get by key locale here !!
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value -> if (file.name.contains(key)) return value
     }
