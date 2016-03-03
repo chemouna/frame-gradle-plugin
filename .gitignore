@@ -45,8 +45,6 @@ build/intermediates/gradle_project_sync_data.bin
 **/spoon-output
 
 
-screenshots-plugin
-app
 buildSrc
 .idea/
 .idea/**
