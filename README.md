@@ -31,7 +31,7 @@ brew install gs
    }
 
    plugins {
-     id "com.mounacheikhna.screenshots.frame" version "0.1.12"
+     id "com.mounacheikhna.screenshots.frame" version "0.1.13"
    }
    ```
    
@@ -40,7 +40,7 @@ brew install gs
    <dependency>
      <groupId>com.mounacheikhna.screenshots</groupId>
      <artifactId>frame-gradle-plugin</artifactId>
-     <version>0.1.12</version>
+     <version>0.1.13</version>
    </dependency>
    ```
    or Gradle < 2.1 dependency
@@ -51,7 +51,7 @@ brew install gs
        }
    
        dependencies{
-           classpath 'com.mounacheikhna.screenshots:frame-gradle-plugin:0.1.12'
+           classpath 'com.mounacheikhna.screenshots:frame-gradle-plugin:0.1.13'
        }
    }    
    ```

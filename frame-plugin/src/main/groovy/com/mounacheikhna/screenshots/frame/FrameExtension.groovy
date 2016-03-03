@@ -9,7 +9,7 @@ public class FrameExtension {
   String framesDir
   String selectedFrame
   Map<String, Map<String, String>> localTitlesMap = new HashMap<>()
-  String titlesJsonFile
+  String titlesFile
   String titlesFolder
   String backgroundColor
   String backgroundImage

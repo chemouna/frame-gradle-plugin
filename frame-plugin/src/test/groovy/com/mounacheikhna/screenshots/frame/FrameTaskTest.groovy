@@ -3,7 +3,6 @@ package com.mounacheikhna.screenshots.frame
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Ignore
@@ -40,7 +39,7 @@ class FrameTaskTest {
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
-    frameTask.titlesJsonFile("titles.json")
+    frameTask.titlesFile("titles.json")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
@@ -66,7 +65,7 @@ class FrameTaskTest {
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
-    frameTask.titlesJsonFile("long-titles.json")
+    frameTask.titlesFile("long-titles.json")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
@@ -84,7 +83,7 @@ class FrameTaskTest {
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
-    frameTask.titlesJsonFile("titles-with-line-breaks.json")
+    frameTask.titlesFile("titles-with-line-breaks.json")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
@@ -106,7 +105,7 @@ class FrameTaskTest {
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
-    frameTask.titlesJsonFile("long-titles.json")
+    frameTask.titlesFile("long-titles.json")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
