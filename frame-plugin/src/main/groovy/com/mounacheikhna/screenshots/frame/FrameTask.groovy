@@ -12,6 +12,8 @@ import org.gradle.api.tasks.TaskAction
  */
 public class FrameTask extends DefaultTask implements FrameSpec {
 
+  public static final Tuple2<String, Map<String, String>> EMPTY_TUPLE2 = new Tuple2<>("",
+          new HashMap<String, String>())
   String inputDir
   String outputDir
   String framesDir
@@ -125,10 +127,16 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
   Map<String, Map<String, String>> titlesFromFile(File file) {
     Tuple2<String, Map<String, String>> res
-    if (file.name.contains(".json")) {
-      res = fromJson(file)
-    } else if (file.name.contains(".properties")) {
-      res = fromProperties(file)
+    switch (file.name) {
+      case ~/.*.json$/:
+        res = fromJson(file)
+        break
+      case ~/.*.properties$/:
+        res = fromProperties(file)
+        break
+      default:
+        res = EMPTY_TUPLE2
+        break
     }
     Map<String, Map<String, String>> all = new HashMap<>()
     all.put(res.first, res.second)
@@ -137,7 +145,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
   static Tuple2<String, Map<String, String>> fromProperties(File file) {
     String[] matcher = (file.name =~ /([a-z]*)_([A-Z]*)_(.*)/)[0]
-    if(matcher.size() < 3) return new Tuple2<>()
+    if(matcher.size() < 3) return EMPTY_TUPLE2
     def locale = "${matcher[1]}_${matcher[2]}"
     def values = new HashMap<String, String>()
     Properties properties = ParseUtils.parseProperties(file.path)
@@ -152,7 +160,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     def values = new HashMap<String, String>()
     def parsed = this.jsonSlurper.parse(file)
     parsed.titles.each {
-      values.put(it.keyword, it.title)
+      values.put(it.keyword.toString(), it.title.toString())
     }
     return new Tuple2<>(locale, values)
   }
