@@ -103,10 +103,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   Map<String, Map<String, String>> getTitles() {
     if (titlesFile?.trim()) {
       File file = new File("${getProject().projectDir.getPath()}/${this.titlesFile}")
-      if (file.exists()) {
-        titlesFromFile =
-        return titlesFromFile(file)
-      }
+      if (file.exists()) return titlesFromFile(file)
     }
     else if (titlesFolder?.trim()) {
       return getTitlesFromTitlesFolder()
@@ -121,13 +118,13 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     Map<String, Map<String, String>> titles = new HashMap<>()
     titlesFolder.eachFileRecurse(FileType.FILES, {
       file ->
-        titlesFromFile(file)
+        titles.putAll(titlesFromFile(file))
     })
 
     return titles;
   }
 
-  private Map<String, Map<String, String>> titlesFromFile(File file) {
+  Map<String, Map<String, String>> titlesFromFile(File file) {
     Map<String, String> fileTitles = new HashMap<>()
     def locale = ""
     if (file.name.contains(".json")) {
