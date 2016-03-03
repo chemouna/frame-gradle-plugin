@@ -22,13 +22,6 @@ class FrameTaskTest {
     project = ProjectBuilder.builder().withProjectDir(new File(FIXTURE_WORKING_DIR)).build()
     project.apply plugin: 'java'
     project.evaluate()
-
-    /*def outputFile = new File(FIXTURE_WORKING_DIR, "output")
-    if(outputFile.exists()) {
-      outputFile.listFiles().each {
-        File file -> file.delete()
-      }
-    }*/
   }
 
   @Test

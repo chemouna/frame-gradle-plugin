@@ -34,19 +34,18 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     jsonSlurper = new JsonSlurper()
     titles = getTitles()
 
-    //TODO: provide a clear error to the user when there a trailing / that making folder not recognized
     String screenshotsFolderPath = "${project.projectDir}/$inputDir/"
     if (isDirEmpty(screenshotsFolderPath)) {
       throw new GradleException("Input directory is empty")
     }
 
-    if (!new File("${project.projectDir}/$outputDir").exists()) {
-      new File("${project.projectDir}/$outputDir").mkdirs()
+    final outputFolder = new File("${project.projectDir}/$outputDir")
+    if (!outputFolder.exists()) {
+      outputFolder.mkdirs()
     }
     File screenshotsFolder = new File(screenshotsFolderPath)
     screenshotsFolder.eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
-        //TODO: maybe copy it to output folder before processing
         File output = resizeToFrameSize(it)
         frameScreenshot(output)
         addScreenshotTitle(output)
@@ -125,30 +124,37 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   Map<String, Map<String, String>> titlesFromFile(File file) {
-    Map<String, String> fileTitles = new HashMap<>()
-    def locale = ""
+    Tuple2<String, Map<String, String>> res
     if (file.name.contains(".json")) {
-      locale = file.name.replace(".json", "")
-      def values = new HashMap<String, String>()
-      def parsed = this.jsonSlurper.parse(file)
-      parsed.titles.each {
-        values.put(it.keyword, it.title)
-      }
-      fileTitles.put(locale, values)
+      res = fromJson(file)
     } else if (file.name.contains(".properties")) {
-      def matcher = (file.name =~ /([a-z]*)_([A-Z]*)_(.*)/)[0]
-      locale = "${matcher[1]}_${matcher[2]}"
-
-      def values = new HashMap<String, String>()
-      Properties properties = ParseUtils.parseProperties(file.path)
-      properties.each {
-        values.put(it.key, it.value)
-      }
-      fileTitles.put(locale, values)
+      res = fromProperties(file)
     }
     Map<String, Map<String, String>> all = new HashMap<>()
-    all.put(locale, fileTitles)
+    all.put(res.first, res.second)
     return all
+  }
+
+  static Tuple2<String, Map<String, String>> fromProperties(File file) {
+    String[] matcher = (file.name =~ /([a-z]*)_([A-Z]*)_(.*)/)[0]
+    if(matcher.size() < 3) return new Tuple2<>()
+    def locale = "${matcher[1]}_${matcher[2]}"
+    def values = new HashMap<String, String>()
+    Properties properties = ParseUtils.parseProperties(file.path)
+    properties.each {
+      values.put(it.key.toString(), it.value.toString())
+    }
+    return new Tuple2<>(locale, values)
+  }
+
+  Tuple2<String, Map<String, String>> fromJson(File file) {
+    def locale = file.name.replace(".json", "")
+    def values = new HashMap<String, String>()
+    def parsed = this.jsonSlurper.parse(file)
+    parsed.titles.each {
+      values.put(it.keyword, it.title)
+    }
+    return new Tuple2<>(locale, values)
   }
 
   def isDirEmpty = { dirName ->
