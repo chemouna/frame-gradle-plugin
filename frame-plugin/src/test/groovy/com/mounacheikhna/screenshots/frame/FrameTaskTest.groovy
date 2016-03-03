@@ -40,7 +40,7 @@ class FrameTaskTest {
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
-    frameTask.titlesFileName("titles.json")
+    frameTask.titlesJsonFile("titles.json")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
