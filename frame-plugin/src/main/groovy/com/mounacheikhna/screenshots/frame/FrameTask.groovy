@@ -91,6 +91,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     Map<String, String> screenshotsTitles = titles.get("$locale")
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value ->
+        if(key == null) return key
         String keyword = key.replace(suffixKeyword, "")
         if (file.name.contains(keyword)) return value
     }
