@@ -29,6 +29,7 @@ public class FramePlugin implements Plugin<Project> {
         textColor project.frames.textColor
         textSize project.frames.textSize
         topOffset project.frames.topOffset
+        suffixKeyword project.frames.suffixKeyword
       }
     }
   }

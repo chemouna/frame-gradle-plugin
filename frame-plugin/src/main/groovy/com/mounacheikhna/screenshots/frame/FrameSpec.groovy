@@ -32,4 +32,6 @@ interface FrameSpec {
 
   void topOffset(int topOffset)
 
+  void suffixKeyword(String suffixKeyword)
+
 }

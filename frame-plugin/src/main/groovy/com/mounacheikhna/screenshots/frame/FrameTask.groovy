@@ -29,7 +29,8 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String titlesFile
   JsonSlurper jsonSlurper
   Map<String, Map<String, String>> titles
-  private String titlesFolder
+  String titlesFolder
+  String suffixKeyword
 
   @TaskAction
   void performTask() {
@@ -89,7 +90,9 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
     Map<String, String> screenshotsTitles = titles.get("$locale")
     String screenshotsTitle = screenshotsTitles.findResult {
-      key, value -> if (file.name.contains(key)) return value
+      key, value ->
+        String keyword = key.replace(suffixKeyword, "")
+        if (file.name.contains(keyword)) return value
     }
     screenshotsTitle = screenshotsTitle ?: ""
     project.tasks.create("c3${file.name}", Exec) {
@@ -229,4 +232,10 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void topOffset(int topOffset) {
     this.topOffset = topOffset
   }
+
+  @Override
+  void suffixKeyword(String suffixKeyword) {
+    this.suffixKeyword = suffixKeyword
+  }
+
 }
