@@ -58,6 +58,7 @@ frames {
   selectedFrame = "galaxy_nexus_port_back.png"
   //titlesFileName = "titles.json"
   titlesFolder = "config"
+  suffixKeyword = "_screen"
   backgroundColor = "#4CAF50"
   textColor = "#FFFFFF"
   textSize = 40

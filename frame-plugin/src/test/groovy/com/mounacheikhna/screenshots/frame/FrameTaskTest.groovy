@@ -130,7 +130,7 @@ class FrameTaskTest {
   }
 
   @Test
-  public void propertiesTitlesFromFolderShouldBeApplied() {
+  public void jsonTitlesFromFolderShouldBeApplied() {
     new File(FIXTURE_WORKING_DIR, "output").deleteDir()
 
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
@@ -139,6 +139,7 @@ class FrameTaskTest {
     frameTask.framesDir("frames")
     frameTask.selectedFrame("galaxy_nexus_port_back.png")
     frameTask.titlesFolder("config")
+    frameTask.suffixKeyword("_screen")
     frameTask.backgroundColor("#4CAF50")
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)

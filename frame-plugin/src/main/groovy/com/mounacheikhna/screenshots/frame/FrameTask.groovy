@@ -47,11 +47,12 @@ public class FrameTask extends DefaultTask implements FrameSpec {
       outputFolder.mkdirs()
     }
     File screenshotsFolder = new File(screenshotsFolderPath)
+    String suffix = this.suffixKeyword ?: ""
     screenshotsFolder.eachFileRecurse(FileType.FILES) {
       if (it.name.contains(".png")) {
         File output = resizeToFrameSize(it)
         frameScreenshot(output)
-        addScreenshotTitle(output)
+        addScreenshotTitle(output, suffix)
       }
     }
   }
@@ -86,14 +87,15 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     }.execute()
   }
 
-  void addScreenshotTitle(File file) {
+  void addScreenshotTitle(File file, String suffix) {
     String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
-    Map<String, String> screenshotsTitles = titles.get("$locale")
+    Map<String, String> screenshotsTitles = titles.get(locale)
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value ->
-        if(key == null) return key
-        String keyword = key.replace(suffixKeyword, "")
-        if (file.name.contains(keyword)) return value
+        if(key != null) {
+          String keyword = key.replace(suffix, "")
+          if(file.name.contains(keyword)) return value
+        }
     }
     screenshotsTitle = screenshotsTitle ?: ""
     project.tasks.create("c3${file.name}", Exec) {
@@ -148,7 +150,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   static Tuple2<String, Map<String, String>> fromProperties(File file) {
-    String[] matcher = (file.name =~ /([a-z]*)_([A-Z]*)_(.*)/)[0]
+    String[] matcher = (file.name =~ /([a-z]*)_([A-Z]*)(.*)/)[0]
     if(matcher.size() < 3) return EMPTY_TUPLE2
     def locale = "${matcher[1]}_${matcher[2]}"
     def values = new HashMap<String, String>()
@@ -163,8 +165,9 @@ public class FrameTask extends DefaultTask implements FrameSpec {
     def locale = file.name.replace(".json", "")
     def values = new HashMap<String, String>()
     def parsed = this.jsonSlurper.parse(file)
-    parsed.titles.each {
-      values.put(it.keyword.toString(), it.title.toString())
+    parsed.each {
+      key, value ->
+      values.put(key.toString(), value.toString())
     }
     return new Tuple2<>(locale, values)
   }
