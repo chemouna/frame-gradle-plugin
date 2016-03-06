@@ -170,4 +170,25 @@ class FrameTaskTest {
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
   }
 
+  @Test
+  public void jsonWithDifferentConfigNamesShouldBeApplied() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFolder("config-different-locale-name")
+    frameTask.suffixKeyword("_screen")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+  }
+
+
 }
