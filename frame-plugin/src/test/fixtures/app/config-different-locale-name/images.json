@@ -1,0 +1,13 @@
+{
+  "WEST_EUR_M_1_ROUND": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_M_1_ROUND.png",
+  "WEST_EUR_M_1_CUT": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_M_1_CUT.png",
+
+  "WEST_EUR_M_2_ROUND": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_M_2_ROUND.png",
+  "WEST_EUR_M_2_CUT": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_M_2_CUT.png",
+
+  "WEST_EUR_F_1_ROUND": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_F_1_ROUND.png",
+  "WEST_EUR_F_1_CUT": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_F_1_CUT.png",
+
+  "WEST_EUR_F_2_ROUND": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_F_2_ROUND.png",
+  "WEST_EUR_F_2_CUT": "http://bbcmobile-dev.s3.amazonaws.com/screenshots/WEST_EUR_F_2_CUT.png"
+}
