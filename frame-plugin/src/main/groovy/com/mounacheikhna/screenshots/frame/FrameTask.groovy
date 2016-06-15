@@ -88,11 +88,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   }
 
   void addScreenshotTitle(File file, String suffix) {
-    String locale = titles.keySet().findResult { if (file.name.contains(it)) return it }
+    String locale = titles.keySet().findResult { if (file.name.contains("_"+ it + "_")) return it }
     Map<String, String> screenshotsTitles = titles.get(locale)
     String screenshotsTitle = screenshotsTitles.findResult {
       key, value ->
-        if(key != null) {
+        if(key != null && key.contains(suffix)) {
           String keyword = key.replace(suffix, "")
           if(file.name.contains(keyword)) return value
         }

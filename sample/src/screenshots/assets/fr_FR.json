@@ -1,0 +1,38 @@
+{
+  "dummy1":"dummy_value_fr_1",
+  "dummy2": "dummy_value_fr_2",
+  "list_screen": "Afficher une liste de routine",
+  "create_screen":"Créer un nouveau routine",
+
+  "second_booking_seats_availables": "2",
+  "second_booking_user": "Peter D",
+  "second_search_result_trip_departure_date": "19\/02\/2016 12:20:04",
+  "second_search_result_trip_from": "Paris",
+  "second_search_result_trip_price": "14",
+  "second_search_result_trip_seats": "3",
+  "second_search_result_trip_time": "15:10",
+  "second_search_result_trip_to": "Lyon",
+  "second_search_result_user": "Sophie T",
+  "second_search_result_user_age": "25",
+  "second_search_result_user_gender": "female",
+  "second_search_result_user_image_bucket": "WEST_EUR_F_1_ROUND",
+  "second_search_result_user_rating_number": "19",
+  "second_search_result_user_rating_percentage": "4.4",
+  "third_search_result_trip_departure_date": "19\/02\/2016 12:40:04",
+  "third_search_result_trip_from": "Paris",
+  "third_search_result_trip_price": "15",
+  "third_search_result_trip_seats": "2",
+  "third_search_result_trip_time": "16:10",
+  "third_search_result_trip_to": "Lyon",
+  "third_search_result_user": "Peter D",
+  "third_search_result_user_age": "24",
+  "third_search_result_user_gender": "male",
+  "third_search_result_user_image_bucket": "WEST_EUR_M_2_ROUND",
+  "third_search_result_user_rating_number": "15",
+  "third_search_result_user_rating_percentage": "4.3"
+
+}
+
+
+
+

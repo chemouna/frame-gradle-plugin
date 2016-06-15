@@ -1,6 +1,6 @@
 {
-  "dummy1": "dummy_value_en_1",
-  "dummy2": "dummy_value_en_2",
+  "dummy1":"dummy_value_fr_1",
+  "dummy2": "dummy_value_fr_2",
   "list_screen": "Display a list of Routines",
   "create_screen": "Create a new routine"
 }
