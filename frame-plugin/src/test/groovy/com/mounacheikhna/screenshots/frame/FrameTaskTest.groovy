@@ -5,13 +5,11 @@ import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 
 /**
  * Created by cheikhnamouna on 1/24/16.
  */
-@Ignore
 class FrameTaskTest {
 
   public static final String FIXTURE_WORKING_DIR = new File("src/test/fixtures/app")
@@ -189,6 +187,5 @@ class FrameTaskTest {
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
   }
-
 
 }

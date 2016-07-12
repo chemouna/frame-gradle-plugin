@@ -19,6 +19,7 @@ repositories {
 dependencies {
     compile localGroovy()
     compile gradleApi()
+    testCompile 'junit:junit:4.12'
 }
 
 version = VERSION_NAME
