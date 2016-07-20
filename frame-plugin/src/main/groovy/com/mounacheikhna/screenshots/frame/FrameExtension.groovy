@@ -17,4 +17,6 @@ public class FrameExtension {
   int textSize
   int topOffset
   String suffixKeyword
+  String fontFilePath
+
 }

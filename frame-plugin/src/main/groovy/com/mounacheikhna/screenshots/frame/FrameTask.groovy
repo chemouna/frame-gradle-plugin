@@ -6,6 +6,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskAction
+import org.gradle.util.TextUtil
 
 /**
  * Created by m.cheikhna on 15/01/2015.
@@ -31,6 +32,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   Map<String, Map<String, String>> titles
   String titlesFolder
   String suffixKeyword
+  String fontFilePath
 
   @TaskAction
   void performTask() {
@@ -98,12 +100,24 @@ public class FrameTask extends DefaultTask implements FrameSpec {
         }
     }
     screenshotsTitle = screenshotsTitle ?: ""
+
+    String[] convertArgs = ["convert", "${file.name}", "-gravity", "North"]
+
+    println "fontFilePath: $fontFilePath & exists : ${new File("${project.projectDir}/$fontFilePath").exists()}"
+    if((fontFilePath)?.trim() && new File("${project.projectDir}/$fontFilePath").exists()) {
+      convertArgs += ["-font", fontFilePath]
+    }
+    convertArgs += ["-pointsize", "$textSize", "-density", density, "-fill", textColor,
+                       "-annotate", "+0+$topOffset", "${screenshotsTitle}", "${file.name}"]
+
+    println "args: $convertArgs"
+
     project.tasks.create("c3${file.name}", Exec) {
       workingDir file.parent
-      commandLine "convert", "${file.name}", "-gravity",
-              "North", "-pointsize", "$textSize", "-density", density, "-fill", textColor,
-              "-annotate", "+0+$topOffset", "${screenshotsTitle}",
-              "${file.name}"
+      /*commandLine "convert", "${file.name}", "-gravity", "North", "-font", fontFilePath,
+          "-pointsize", "$textSize", "-density", density, "-fill", textColor,
+          "-annotate", "+0+$topOffset", "${screenshotsTitle}", "${file.name}"*/
+      commandLine convertArgs
     }.execute()
   }
 
@@ -240,6 +254,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void suffixKeyword(String suffixKeyword) {
     this.suffixKeyword = suffixKeyword
+  }
+
+  @Override
+  void fontFilePath(String fontFilePath) {
+    this.fontFilePath = fontFilePath
   }
 
 }

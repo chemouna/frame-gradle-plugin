@@ -6,7 +6,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-
 /**
  * Created by cheikhnamouna on 1/24/16.
  */
@@ -22,7 +21,7 @@ class FrameTaskTest {
     project.evaluate()
   }
 
-  @Test
+  /*@Test
   public void allScreenshotsShouldBeFramed() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
 
@@ -183,6 +182,47 @@ class FrameTaskTest {
     frameTask.textColor("#FFFFFF")
     frameTask.textSize(40)
     frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+  }
+
+  @Test
+  public void localesWithSamePrefixesShouldNotInterleave() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+    frameTask.inputDir("screenshots-locales-same-prefix")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFolder("config-locales-same-prefix")
+    frameTask.suffixKeyword("_screen")
+    frameTask.backgroundColor("#4CAF50")
+    frameTask.textColor("#FFFFFF")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.execute()
+
+    Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
+  }*/
+
+  @Test
+  public void customFileFontShouldBeUsed() {
+    new File(FIXTURE_WORKING_DIR, "output").deleteDir()
+    Task frameTask = project.tasks.create("frameTask", FrameTask.class)
+
+    frameTask.inputDir("screenshots")
+    frameTask.outputDir("output")
+    frameTask.framesDir("frames")
+    frameTask.selectedFrame("galaxy_nexus_port_back.png")
+    frameTask.titlesFolder("config-different-locale-name")
+    frameTask.suffixKeyword("_screen")
+    frameTask.backgroundColor("#FFFFFF")
+    frameTask.textColor("#4a4c4a")
+    frameTask.textSize(40)
+    frameTask.topOffset(40)
+    frameTask.fontFilePath("fonts/ss.ttf")
     frameTask.execute()
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())

@@ -34,4 +34,6 @@ interface FrameSpec {
 
   void suffixKeyword(String suffixKeyword)
 
+  void fontFilePath(String fontFilePath)
+
 }
