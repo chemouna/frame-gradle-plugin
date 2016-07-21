@@ -22,7 +22,7 @@ class FrameTaskTest {
     project.evaluate()
   }
 
-  /*@Test
+  @Test
   public void allScreenshotsShouldBeFramed() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
 
@@ -206,7 +206,7 @@ class FrameTaskTest {
     frameTask.execute()
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
-  }*/
+  }
 
   @Test
   public void customFileFontShouldBeUsed() {
