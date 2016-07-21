@@ -6,6 +6,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+
 /**
  * Created by cheikhnamouna on 1/24/16.
  */
@@ -222,7 +223,7 @@ class FrameTaskTest {
     frameTask.textColor("#4a4c4a")
     frameTask.textSize(40)
     frameTask.topOffset(40)
-    frameTask.fontFilePath("fonts/ss.ttf")
+    frameTask.fontFilePath("fonts/OpenSans-Semibold.ttf")
     frameTask.execute()
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())

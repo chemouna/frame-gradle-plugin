@@ -103,9 +103,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
     String[] convertArgs = ["convert", "${file.name}", "-gravity", "North"]
 
-    println "fontFilePath: $fontFilePath & exists : ${new File("${project.projectDir}/$fontFilePath").exists()}"
-    if((fontFilePath)?.trim() && new File("${project.projectDir}/$fontFilePath").exists()) {
-      convertArgs += ["-font", fontFilePath]
+    String fontFullPath = "${project.projectDir}/$fontFilePath"
+    println "fontFilePath: $fontFullPath & exists : ${new File(fontFullPath).exists()}"
+
+    if((fontFilePath)?.trim() && new File(fontFullPath).exists()) {
+      convertArgs += ["-font", "${fontFullPath}"]
     }
     convertArgs += ["-pointsize", "$textSize", "-density", density, "-fill", textColor,
                        "-annotate", "+0+$topOffset", "${screenshotsTitle}", "${file.name}"]
