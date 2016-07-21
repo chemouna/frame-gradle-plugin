@@ -19,6 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="buildSrc_main" target="1.8" />
+      <module name="buildSrc_test" target="1.8" />
       <module name="frame-plugin_main" target="1.8" />
       <module name="frame-plugin_test" target="1.8" />
     </bytecodeTargetLevel>

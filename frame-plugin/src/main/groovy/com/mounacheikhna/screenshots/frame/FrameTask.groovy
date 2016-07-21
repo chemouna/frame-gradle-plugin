@@ -72,7 +72,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   void frameScreenshot(File file) {
     String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
     List<String> frameArgs = ["convert", "$frameFileName", "${file.name}",
-                              "-gravity", "center", "-compose", "over", "-composite"]
+                              "-gravity", "South", "-compose", "over", "-composite"]
     if (backgroundColor?.trim()) {
       frameArgs.add("-fill")
       frameArgs.add(backgroundColor)
@@ -116,9 +116,6 @@ public class FrameTask extends DefaultTask implements FrameSpec {
 
     project.tasks.create("c3${file.name}", Exec) {
       workingDir file.parent
-      /*commandLine "convert", "${file.name}", "-gravity", "North", "-font", fontFilePath,
-          "-pointsize", "$textSize", "-density", density, "-fill", textColor,
-          "-annotate", "+0+$topOffset", "${screenshotsTitle}", "${file.name}"*/
       commandLine convertArgs
     }.execute()
   }
