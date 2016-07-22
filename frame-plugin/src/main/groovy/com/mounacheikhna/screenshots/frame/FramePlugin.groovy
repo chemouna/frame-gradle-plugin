@@ -30,6 +30,7 @@ public class FramePlugin implements Plugin<Project> {
         textSize project.frames.textSize
         topOffset project.frames.topOffset
         suffixKeyword project.frames.suffixKeyword
+        screenshotAdjustment project.frames.screenshotAdjustment
       }
     }
   }

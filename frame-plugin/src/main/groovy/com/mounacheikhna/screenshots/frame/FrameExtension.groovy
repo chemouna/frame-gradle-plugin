@@ -18,5 +18,5 @@ public class FrameExtension {
   int topOffset
   String suffixKeyword
   String fontFilePath
-
+  String screenshotAdjustment
 }
