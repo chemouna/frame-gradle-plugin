@@ -23,7 +23,7 @@ class FrameTaskTest {
     project.evaluate()
   }
 
-  /*@Test
+  @Test
   public void allScreenshotsShouldBeFramed() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
 
@@ -47,9 +47,8 @@ class FrameTaskTest {
     screenshotsFolder.list().each {
       Assert.assertTrue(new File("${outputFolder.path}/$it").exists())
     }
-  }*/
+  }
 
-/*
   @Test
   public void longTitlesShouldGoToNextLines() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
@@ -66,9 +65,8 @@ class FrameTaskTest {
 
     frameTask.execute()
   }
-*/
 
-  /*@Test
+  @Test
   public void lineBreaksOnTitlesShouldBeApplied() {
     Task frameTask = project.tasks.create("frameTask", FrameTask.class)
 
@@ -208,7 +206,7 @@ class FrameTaskTest {
     frameTask.execute()
 
     Assert.assertTrue(new File("${project.projectDir.path}/output").exists())
-  }*/
+  }
 
   @Test
   public void customFileFontShouldBeUsed() {
@@ -218,14 +216,14 @@ class FrameTaskTest {
     frameTask.inputDir("screenshots")
     frameTask.outputDir("output")
     frameTask.framesDir("frames")
-    frameTask.selectedFrame("galaxy_nexus_frame9.png")
+    frameTask.selectedFrame("galaxy_nexus_frame10.png")
     frameTask.titlesFolder("config-very-long-titles")
     frameTask.suffixKeyword("_screen")
     frameTask.backgroundColor("#FFFFFF")
     frameTask.textColor("#4a4c4a")
-    frameTask.textSize(24)
-    frameTask.topOffset(40)
-    frameTask.screenshotAdjustment("+8+270")
+    frameTask.textSize(34)
+    frameTask.topOffset(80)
+    frameTask.screenshotAdjustment("+8+140")
     frameTask.fontFilePath("fonts/OpenSans-Semibold.ttf")
     frameTask.execute()
 
