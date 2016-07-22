@@ -25,7 +25,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String textColor
   int textSize = 100
   int topOffset = 40
-  int density = 100
+  int density = 200
   String deviceFrameRequiredSize = "1270x1290"
   String titlesFile
   JsonSlurper jsonSlurper
@@ -33,6 +33,7 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   String titlesFolder
   String suffixKeyword
   String fontFilePath
+  String screenshotAdjustment
 
   @TaskAction
   void performTask() {
@@ -67,12 +68,14 @@ public class FrameTask extends DefaultTask implements FrameSpec {
               "$outputFilePath"
     }.execute()
     return new File("$outputFilePath")
+    // "-page", "+0+180",
   }
 
   void frameScreenshot(File file) {
     String frameFileName = "${project.projectDir}/$framesDir/$selectedFrame"
     List<String> frameArgs = ["convert", "$frameFileName", "${file.name}",
-                              "-gravity", "South", "-compose", "over", "-composite"]
+                              "-gravity", "center", "-geometry", "$screenshotAdjustment",
+                              "-compose", "over", "-composite"]
     if (backgroundColor?.trim()) {
       frameArgs.add("-fill")
       frameArgs.add(backgroundColor)
@@ -258,6 +261,11 @@ public class FrameTask extends DefaultTask implements FrameSpec {
   @Override
   void fontFilePath(String fontFilePath) {
     this.fontFilePath = fontFilePath
+  }
+
+  @Override
+  void screenshotAdjustment(String screenshotAdjustment) {
+    this.screenshotAdjustment = screenshotAdjustment
   }
 
 }

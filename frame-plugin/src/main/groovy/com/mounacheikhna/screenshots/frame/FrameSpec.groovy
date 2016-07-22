@@ -36,4 +36,6 @@ interface FrameSpec {
 
   void fontFilePath(String fontFilePath)
 
+  void screenshotAdjustment(String screenshotAdjustment)
+
 }
